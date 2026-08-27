@@ -1,0 +1,287 @@
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+  transition: box-shadow 0.2s ease;
+}
+.hdr.is-stuck { box-shadow: 0 4px 20px rgba(31, 21, 18, 0.07); }
+
+/* ---------- main bar ---------- */
+.hdr-row {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  height: var(--header-h);
+}
+
+.hdr-brand { flex: none; display: flex; align-items: center; }
+.hdr-brand img { height: 38px; width: auto; }
+
+.hdr-search {
+  flex: 1;
+  max-width: 520px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 42px;
+  padding: 0 16px;
+  border-radius: var(--r-pill);
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  transition: background 0.18s ease, box-shadow 0.18s ease;
+}
+.hdr-search:focus-within {
+  background: #fff;
+  color: var(--ink);
+  border-color: var(--orange-soft);
+  box-shadow: 0 0 0 3px var(--orange-wash);
+}
+.hdr-search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  font-size: 14.5px;
+  color: inherit;
+}
+.hdr-search input::placeholder { color: currentColor; opacity: 0.72; }
+.hdr-search input::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+.hdr-actions {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.hdr-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border-radius: var(--r-pill);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  transition: background 0.16s ease, color 0.16s ease;
+}
+.hdr-icon:hover { background: var(--bg-alt); color: var(--brand); }
+
+.hdr-icon-ic { position: relative; display: grid; place-items: center; }
+
+.hdr-badge {
+  position: absolute;
+  top: -7px;
+  right: -9px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border-radius: var(--r-pill);
+  background: var(--brand);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 700;
+  font-style: normal;
+  display: grid;
+  place-items: center;
+}
+
+.hdr-login {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: var(--r-pill);
+  background: var(--orange);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 700;
+  box-shadow: 0 6px 16px rgba(208, 71, 37, 0.3);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.hdr-login:hover { background: var(--orange-deep); transform: translateY(-1px); }
+
+/* ---------- secondary nav ---------- */
+.hdr-nav { border-top: 1px solid var(--line); }
+
+.hdr-nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: 48px;
+}
+
+.hdr-nav-row ul {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.hdr-nav-row ul::-webkit-scrollbar { display: none; }
+
+.hdr-nav-row li a {
+  display: block;
+  white-space: nowrap;
+  padding: 8px 14px;
+  border-radius: var(--r-sm);
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  transition: 0.16s ease;
+}
+.hdr-nav-row li a:hover { background: var(--brand-wash); color: var(--brand); }
+
+.hdr-nav-cta {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--brand);
+  transition: gap 0.18s ease, color 0.18s ease;
+}
+.hdr-nav-cta:hover { gap: 12px; color: var(--brand-deep); }
+
+/* ---------- burger + drawer ---------- */
+.hdr-burger { display: none; width: 40px; height: 40px; flex-direction: column; gap: 5px; align-items: center; justify-content: center; }
+.hdr-burger span { display: block; width: 20px; height: 2px; background: var(--ink); border-radius: 2px; }
+
+.hdr-drawer {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 21, 18, 0.42);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 200;
+}
+.hdr-drawer.open { opacity: 1; pointer-events: auto; }
+
+.hdr-drawer-panel {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: min(320px, 86vw);
+  padding: 22px 20px;
+  background: var(--bg);
+  transform: translateX(100%);
+  transition: transform 0.24s ease;
+  overflow-y: auto;
+}
+.hdr-drawer.open .hdr-drawer-panel { transform: none; }
+
+.hdr-search.mobile { max-width: none; margin-bottom: 18px; }
+
+.hdr-drawer-panel ul { display: flex; flex-direction: column; gap: 2px; }
+.hdr-drawer-panel li a {
+  display: block;
+  padding: 13px 12px;
+  border-radius: var(--r-sm);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.hdr-drawer-panel li a:hover { background: var(--brand-wash); color: var(--brand); }
+
+.hdr-drawer-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: var(--r-md);
+  background: var(--orange);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 1024px) {
+  .hdr-icon span { display: none; }
+  .hdr-icon { padding: 8px; }
+}
+
+/* the mobile-only pieces are off by default, so nothing desktop-scoped has to
+   turn them off */
+.hdr-mob,
+.hdr-mobsearch { display: none; }
+
+/* ---------- mobile: the app's own header ----------
+   The APK shows logo | search | profile and moves navigation to the floating
+   tab bar. The inline search field becomes an icon that expands a row, which
+   is what keeps the bar as short as the app's. */
+@media (max-width: 860px) {
+  .hdr-row { height: 58px; gap: 10px; }
+  .hdr-brand img { height: 32px; }
+  .hdr-actions,
+  .hdr-nav { display: none; }
+  .hdr-burger { display: flex; margin-left: auto; }
+  .hdr-search { display: none; }
+
+  .hdr-mob { display: flex; align-items: center; gap: 2px; margin-left: auto; }
+  .hdr-mob + .hdr-burger { margin-left: 0; }
+
+  .hdr-mob-btn {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: var(--ink);
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.16s ease;
+  }
+  .hdr-mob-btn:active { background: var(--bg-alt); }
+
+  /* the expanding search row */
+  .hdr-mobsearch {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.24s ease;
+    border-top: 1px solid transparent;
+  }
+  .hdr-mobsearch.open {
+    grid-template-rows: 1fr;
+    border-top-color: var(--line);
+  }
+  .hdr-mobsearch > div { overflow: hidden; }
+  .hdr-mobsearch form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    padding: 0 16px;
+    height: 42px;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--line);
+    background: var(--bg-alt);
+    color: var(--ink-soft);
+  }
+  .hdr-mobsearch input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    font: inherit;
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .hdr-mobsearch input::placeholder { color: var(--grey); }
+  .hdr-mobsearch input::-webkit-search-cancel-button { -webkit-appearance: none; }
+}
+

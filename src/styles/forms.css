@@ -1,0 +1,104 @@
+/* ============================================================
+   Shared form + price primitives used across the booking flows
+   ============================================================ */
+
+/* date picker */
+.bf-dates {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+  gap: 10px;
+}
+.bf-date {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 12px 6px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-sm);
+  transition: 0.16s ease;
+}
+.bf-date small { font-size: 11px; color: var(--grey); }
+.bf-date b { font-size: 19px; font-weight: 700; }
+.bf-date:hover { border-color: var(--orange-soft); }
+.bf-date.sel { border-color: var(--orange); background: var(--orange); color: #fff; }
+.bf-date.sel small { color: rgba(255, 255, 255, 0.85); }
+
+/* devotee blocks */
+.bf-devotee {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+}
+.bf-devotee-head {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 12px;
+  font-size: 13px; font-weight: 700;
+}
+.bf-devotee-head button { font-size: 12.5px; font-weight: 600; color: var(--orange-deep); }
+
+/* fields */
+.bf-fields { display: grid; gap: 12px; }
+.bf-fields label { display: block; }
+.bf-fields label > span {
+  display: block; margin-bottom: 6px;
+  font-size: 12.5px; font-weight: 600; color: var(--ink-soft);
+}
+.bf-fields input,
+.bf-fields select {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-sm);
+  font: inherit;
+  font-size: 14.5px;
+  outline: none;
+  background: #fff;
+  color: var(--ink);
+}
+.bf-fields input:focus,
+.bf-fields select:focus { border-color: var(--orange); }
+.bf-fields input::placeholder { color: var(--grey-light); }
+
+/* coupon */
+.bf-coupon { display: flex; gap: 10px; margin-bottom: 18px; }
+.bf-coupon input {
+  flex: 1; min-width: 0;
+  height: 46px;
+  padding: 0 14px;
+  border: 1.5px dashed var(--line);
+  border-radius: var(--r-sm);
+  font: inherit; font-size: 14px; outline: none;
+}
+.bf-coupon input:focus { border-color: var(--orange); }
+.bf-coupon button {
+  flex: none;
+  padding: 0 22px;
+  border-radius: var(--r-sm);
+  background: var(--orange-pale);
+  color: var(--orange-deep);
+  font-weight: 700; font-size: 14px;
+}
+.bf-coupon button:hover { background: var(--orange); color: #fff; }
+
+/* price breakdown */
+.bf-price { border-top: 1px solid var(--line); padding-top: 14px; margin-bottom: 18px; }
+.bf-price > div {
+  display: flex; justify-content: space-between; gap: 16px;
+  padding: 7px 0;
+  font-size: 14.5px;
+}
+.bf-price dt { color: var(--grey); }
+.bf-price dd { font-weight: 600; text-align: right; }
+.bf-price .off dt, .bf-price .off dd { color: var(--green); }
+.bf-price .grand {
+  margin-top: 8px; padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 18px; font-weight: 800;
+}
+.bf-price .grand dt { color: var(--ink); }
+.bf-price .grand dd { font-weight: 800; }
+
+@media (max-width: 620px) {
+  .bf-dates { grid-template-columns: repeat(auto-fill, minmax(66px, 1fr)); gap: 8px; }
+  .bf-date b { font-size: 17px; }
+}

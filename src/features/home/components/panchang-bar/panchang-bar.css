@@ -1,0 +1,57 @@
+.panchang {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-top: 28px;
+  padding: 20px 30px;
+  border-radius: var(--r-lg);
+  background: linear-gradient(105deg, var(--tithi-a) 0%, var(--tithi-a) 42%, var(--tithi-b) 100%);
+  color: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.panchang-cell { min-width: 0; }
+
+.panchang-cell small {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  color: var(--orange);
+}
+
+.panchang-cell strong {
+  display: block;
+  margin-top: 4px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.panchang-cell span { font-size: 13.5px; color: rgba(255, 255, 255, 0.72); }
+
+.panchang-div {
+  width: 1px;
+  align-self: stretch;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.panchang-link {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--orange);
+  font-size: 14px;
+  font-weight: 700;
+  transition: gap 0.18s ease;
+}
+.panchang-link:hover { gap: 14px; }
+
+@media (max-width: 760px) {
+  .panchang { gap: 16px; padding: 16px 18px; flex-wrap: wrap; }
+  .panchang-cell strong { font-size: 19px; }
+  .panchang-link { margin-left: 0; width: 100%; justify-content: center; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.16); }
+  .panchang-link span { font-size: 13px; }
+}

@@ -1,0 +1,160 @@
+/* ============================================================
+   Promo slider — home hero + Puja page
+   ============================================================ */
+.ps { position: relative; }
+
+.ps-track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  border-radius: var(--r-lg);
+}
+.ps-track::-webkit-scrollbar { display: none; }
+
+.ps-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  scroll-snap-align: center;
+}
+
+/* two-up: keeps the Puja page's original paired-card proportions while the
+   rest of the slides scroll behind them */
+@media (min-width: 900px) {
+  .ps.per-2 .ps-slide {
+    flex: 0 0 calc((100% - 20px) / 2);
+    scroll-snap-align: start;
+  }
+}
+
+.ps-art {
+  position: relative;
+  /* the posters are 2:1; from tablet up they crop to a slimmer band that still
+     clears the artwork's own headline and kicker */
+  aspect-ratio: 2 / 1;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 8px 26px rgba(31, 21, 18, 0.13);
+}
+
+/* a poster carries its own copy, so it only needs a scrim behind the CTA */
+.ps-art.has-image::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 42%;
+  background: linear-gradient(0deg, rgba(31, 21, 18, 0.5), transparent);
+  pointer-events: none;
+}
+
+/* ---------- designed (image-less) slide ---------- */
+.ps-copy {
+  position: relative;
+  z-index: 2;
+  padding: 30px 34px;
+  color: #fff;
+  max-width: 60%;
+}
+.ps-kicker {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 5px 13px;
+  border-radius: var(--r-sm);
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+}
+.ps-copy h3 {
+  font-size: clamp(22px, 2.2vw, 32px);
+  font-weight: 800;
+  line-height: 1.16;
+  letter-spacing: -0.01em;
+}
+.ps-copy h3 span { display: block; }
+.ps-copy p { margin-top: 8px; font-size: 14.5px; opacity: 0.94; }
+
+/* ---------- CTA, same place on every slide ---------- */
+.ps-cta {
+  position: absolute;
+  z-index: 3;
+  right: 22px;
+  bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: var(--r-pill);
+  background: var(--orange);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  box-shadow: 0 6px 18px rgba(31, 21, 18, 0.3);
+  transition: background 0.16s ease, transform 0.16s ease;
+}
+.ps-cta:hover { background: var(--orange-deep); transform: translateY(-2px); }
+.ps-cta span { transition: transform 0.18s ease; }
+.ps-cta:hover span { transform: translateX(4px); }
+
+/* ---------- arrows ---------- */
+.ps-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--ink);
+  font-size: 22px;
+  line-height: 1;
+  box-shadow: 0 4px 14px rgba(31, 21, 18, 0.18);
+  opacity: 0;
+  transition: opacity 0.18s ease, background 0.18s ease, transform 0.18s ease;
+}
+.ps:hover .ps-arrow,
+.ps-arrow:focus-visible { opacity: 1; }
+.ps-arrow:hover { background: #fff; }
+/* sit in the wrap's gutter rather than over the slide — inside the frame they
+   land exactly on the headline */
+.ps-arrow.prev { left: -18px; }
+.ps-arrow.next { right: -18px; }
+
+/* ---------- dots ---------- */
+.ps-dots { display: flex; justify-content: center; gap: 7px; margin-top: 18px; }
+.ps-dots button {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--r-pill);
+  background: var(--grey-light);
+  transition: 0.2s ease;
+}
+.ps-dots button:hover { background: var(--grey); }
+.ps-dots button.active { width: 26px; background: var(--brand); }
+
+/* ---------- responsive ---------- */
+@media (min-width: 900px) {
+  .ps.per-1 .ps-art { aspect-ratio: 2.4 / 1; }
+  /* the posters are 2:1, so a two-up card shows them uncropped */
+  .ps.per-2 .ps-art { aspect-ratio: 2 / 1; }
+  .ps.per-2 .ps-copy { padding: 22px 24px; max-width: 78%; }
+  .ps.per-2 .ps-copy h3 { font-size: clamp(19px, 1.7vw, 24px); }
+  .ps.per-2 .ps-cta { right: 16px; bottom: 14px; padding: 10px 18px; font-size: 12.5px; }
+}
+
+@media (max-width: 620px) {
+  .ps-track { gap: 12px; }
+  .ps-copy { padding: 20px; max-width: 76%; }
+  .ps-cta { right: 14px; bottom: 14px; padding: 10px 16px; font-size: 12.5px; }
+  .ps-arrow { display: none; }
+  .ps-dots { margin-top: 14px; }
+}

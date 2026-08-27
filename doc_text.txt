@@ -1,0 +1,1256 @@
+Home Tab
+Swadharma Super App – Home Screen
+1. Screen Overview
+The Home Screen is the primary landing screen of the Swadharma Super application. It provides users with quick access to astrology, puja services, temples, spiritual products, astrologers, and other spiritual content.
+The screen is designed as a vertically scrollable dashboard with multiple sections and clear call-to-action buttons.
+2. Top Header
+The top section contains:
+Swadharma Logo – Displays the application branding.
+Search Icon – Allows users to search for relevant content or services.
+% Bonus Offer – Displays a % bonus on the user’s first recharge.
+Search Screen
+Allows users to search for temples, deities, and places using the search bar.
+Suggestions – Shows recommended temples.
+Deity – Displays popular deities with descriptions.
+Location – Shows temples based on location.
+Bonus BottomSheet
+Displays a 50% bonus on the first recharge for new users, with a Proceed button to continue and an option to close the popup.
+3. Quick Access Categories
+Below the header, circular category shortcuts are displayed for quick navigation.
+The visible categories include:
+Astro – Clicking on Astro redirects the user to the Astro Dashboard
+Puja – Clicking on Puja redirects the user to the Puja Dashboard
+Teerth – Clicking on Teerth redirects the user to the Teerth Dashboard
+Store –  Clicking on Store redirects the user to the Store Dashboard
+Kundli – Clicking on Kundli redirects the user to the Kundli List
+Horoscope -Clicking on Horoscope redirects the user to the Horoscope Screen
+These shortcuts allow users to reach frequently used features directly from the Home Screen.
+4. Puja List
+Below the Quick Access section, a list of available Pujas is displayed with:
+Puja image
+Puja name
+Purpose/description
+Participate Now/ Book Now option, where applicable
+5. Today's Panchang
+The Panchang section provides important daily Hindu calendar information.
+The screen displays:
+Date and Day
+Today's Tithi
+Ashwin
+Shukla
+Nakshatra
+Hasta
+Rashi
+Virgo
+Hindu Month
+Ashadha
+This section gives users a quick overview of the day's important Panchang details.
+6. Temples Near You
+The Temples Near You section displays nearby temples.
+Each temple card contains:
+Temple image
+Trusted Partner indicator
+Temple name
+Number of available poojas
+Number of available Chadhavas
+Example:
+Kedarnath Temple – Uttarakhand
+Users can swipe horizontally to view additional temples.
+Temple Card Navigation
+Clicking on a Temple card redirects the user to the Temple Detail screen, which contains three tabs:
+Mandir – Displays temple-related information.
+Pujas – Displays Pujas available at the temple.
+Chadhavas – Displays Chadhava offerings available at the temple.
+View All Temples
+The View All Temples button navigates the user to the complete temple listing.
+7. Shop by Purpose
+This section helps users discover spiritual products based on their purpose.
+Available categories shown include:
+Gifting
+Spiritual Wear
+Spiritual Home
+Pooja Essentials
+Puja Murti
+Temple Products
+Each category is represented using an image and category title.
+Selecting a category takes the user to the corresponding product listing.
+8. Live Astrologers
+The Live Astrologers section allows users to discover astrologers available for consultation.
+Filters
+Users can filter astrologers based on consultation purpose, such as:
+Love
+Career
+Marriage
+Business
+Astrologer Card
+Each astrologer card displays:
+Astrologer profile image
+Name
+Verification indicator
+Expertise
+Languages
+Experience
+Number of orders
+Consultation price per minute
+View button
+Example:
+Astro Priyanka
+The View button opens the astrologer's detailed profile.
+View All Astrologers
+The View All Astrologers button navigates to the complete astrologer listing.
+9. Popular Products
+The Popular Products section displays currently popular spiritual products.
+Product Categories
+Products can be filtered using categories such as:
+Gifting
+Astro
+Spiritual Wear
+Product Card
+Each product card contains:
+Product image
+Bestseller label, where applicable
+Wishlist/favourite icon
+Product name
+Current price
+Original price
+Add-to-cart button
+Example products shown:
+Festive Pooja Gift Hamper
+Silver Laxmi Ganesh Coin
+Users can select a product to view its details or use the + button to add it to the cart.
+View All Products
+The View All Products button opens the complete product catalogue.
+10. Brand/Trust Section
+The lower section highlights the Swadharma brand proposition:
+“Made in Bharat. Built for Bharat. Trusted by Bharat.”
+This section communicates that the platform is:
+Rooted in Indian culture and traditions
+Built for Indian users
+Based on Vedic traditions
+Focused on spiritual and devotional experiences
+It also displays trust/recognition elements and platform statistics.
+Examples shown:
+50+ Trusted Temples
+1 Lakh+ Chadavas
+11. Bottom Navigation
+A fixed bottom navigation bar provides access to the application's primary modules.
+The navigation contains icons for different areas of the application, including:
+Home
+Puja
+Astro
+Teerth
+Store
+Profile
+The currently selected section is visually highlighted.
+12. User Flow
+The typical Home Screen flow is:
+Open App → Home Screen → Select Required Category → View Listing/Details → Perform Action
+Examples:
+Home → Puja → Select Puja → View Details → Book Now
+Home → Temples Near You → Select Temple → Temple Details
+Home → Live Astrologers → Select Astrologer → Astro Detail → Consultation
+Home → Shop by Purpose → Select Category → Product Listing → Product Details
+Home → Popular Products → Select Product → Add to Cart → Checkout
+13. Key Purpose of the Home Screen
+The Home Screen acts as a centralized discovery and navigation hub for the Swadharma application. It combines spiritual services, temples, astrology, Panchang information, and e-commerce products in a single interface, allowing users to quickly discover and access the application's major features.
+Puja Tab
+Swadharma Super App – Puja Screen
+1. Screen Overview
+The My Puja screen is the central section for discovering and exploring different Puja rituals and devotional services available on the Swadharma application.
+The screen provides users with:
+Featured Pujas
+Trending Pujas
+Pujas based on personal challenges or intentions
+Trending Temples
+Trending Chadhavas
+Temple-related ritual information
+Quick access to view all available Pujas, Temples, and Chadhavas
+The screen uses a vertically scrollable layout with horizontally scrollable cards within individual sections.
+2. Screen Header
+The top of the screen displays:
+My Puja
+This identifies the current module and provides users with access to the Puja-focused content.
+3. Festival / Promotional Banner
+The first section contains a large promotional banner for a featured festival or spiritual occasion.
+Example shown:
+Chaitra Navratri 2026
+The banner includes:
+Festival name
+Festival date range
+Location/event information
+Short description
+Temple imagery
+Background promotional artwork
+This section is used to highlight important festivals, campaigns, and special Puja opportunities.
+4. Featured Pujas
+The Featured Pujas section highlights curated Puja rituals recommended for users.
+Subtitle:
+Choose a ritual curated for your needs
+Puja Card contains: Each Puja card displays different information based on the Puja type.
+Normal Puja
+A Normal Puja card contains:
+Temple/Puja image
+Normal label
+Puja title
+Puja description
+Book Now button
+Navigation:
+Clicking anywhere on the Puja card redirects the user to the Puja Detail screen.
+Clicking Book Now also redirects the user to the Puja Detail screen.
+The user can review the complete Puja details on the Puja Detail screen before proceeding with the booking.
+Special Puja
+A Special Puja card contains:
+Temple/Puja image
+Special label
+Puja title
+Scheduled date
+Participate Now button
+Navigation:
+Clicking anywhere on the Puja card redirects the user to the Puja Detail screen.
+Clicking Participate Now also redirects the user to the Puja Detail screen.
+The user can review the complete Puja details on the Puja Detail screen before proceeding with participation.
+The cards are horizontally scrollable, allowing users to browse multiple featured Pujas.
+5. Trust &amp; Service Highlights
+Below the Featured Pujas, the screen displays trust-related information to increase user confidence in the services.
+Examples include:
+Verified priests
+Secure payments
+Puja performed in sacred temples
+Verified &amp; experienced priests
+These highlights communicate the authenticity, reliability, and security of the Puja services.
+6. Trending Pujas
+The Trending Pujas section displays popular Pujas based on user interest and participation.
+Subtitle:
+Popular pujas booked by devotees
+Normal Puja
+A Normal Puja card contains:
+Puja image
+Normal label
+Puja title
+Puja description
+Book Now button
+Navigation:
+Clicking anywhere on the Puja card redirects the user to the Puja Detail screen.
+Clicking Book Now also redirects the user to the Puja Detail screen.
+The user can review the complete Puja details on the Puja Detail screen before proceeding with the booking.
+Special Puja
+A Special Puja card contains:
+Temple/Puja image
+Special label
+Puja title
+Scheduled date
+Participate Now button
+Navigation:
+Clicking anywhere on the Puja card redirects the user to the Puja Detail screen.
+Clicking Participate Now also redirects the user to the Puja Detail screen.
+The user can review the complete Puja details on the Puja Detail screen before proceeding with participation.
+Users can swipe horizontally to browse the available Trending Pujas.
+View All Pujas
+The View All Pujas button navigates the user to the complete list of available Pujas.
+My Puja → View All Pujas → Puja List
+Puja List
+Displays the list of available Pujas with:
+Search option to find a specific Puja.
+Filters by Deity, Tithi, and Dosh.
+Puja details such as name, date, purpose, and category.
+Participate Now / Book Now buttons to proceed with the selected Puja.
+7. Pujas for Your Challenges
+This section allows users to discover Pujas based on their personal goals, challenges, or intentions.
+Subtitle:
+Find puja that align with your intentions
+The categories displayed include:
+Love &amp; Relationship
+Education
+Career &amp; Success
+Marriage
+Health &amp; Wellness
+Finance &amp; Business
+Dosha Nivaran
+Protection &amp; Spiritual
+Graha Shanti
+Each category is represented by an icon/image and category name.
+Category Navigation
+Clicking on a challenge category filters the Puja list based on the selected category and displays the relevant Pujas.
+Example: Career &amp; Success → Filtered Puja List → Select Puja → Puja Detail Screen
+Users can select different categories to view Pujas relevant to their specific needs or intentions.
+8. Trending Temples
+The Trending Temples section displays popular temples associated with available Puja services.
+Each temple card contains:
+Temple image
+Trusted Partner badge
+Temple name
+Number of available Pujas
+Number of available Chadhavas
+Example:
+Kedarnath Temple – Uttarakhand
+The temple cards are horizontally scrollable.
+Temple Navigation
+Clicking on a Trending Temple card redirects the user to the Temple Detail screen, where the user can review the temple information and available services before proceeding with any booking.
+View All Temples
+The View All Temples button opens the complete temple listing.
+My Puja → View All Temples → Temple List
+Temples List Screen
+Displays a list of available temples with:
+Search option to find a deity or temple.
+Filters for Sort, Deity, and Location.
+Temple image and Trusted Partner status.
+Temple name and available Poojas &amp; Chadhavas.
+Users can select a temple to view its details.
+9. Trending Chadhavas
+The Trending Chadhavas section showcases popular Chadhava offerings available through the application.
+Chadhava refers to devotional offerings made at temples on behalf of devotees.
+The section displays multiple Chadhava cards.
+Each card can contain:
+Temple image
+Temple name
+Special/Normal badge
+Offering name
+Short description
+Price
+Rating/review information
+Book button(Normal Chadhava) / Participate button(Special Chadhava).
+Example:
+Offer Bilva Patra &amp; Panchamrit
+The user can select Participate to proceed with the selected Chadhava.
+Chadhava Navigation
+Clicking on a Trending Chadhava temple card redirects the user to the Chadhava detail screen, where the available Chadhavas for the selected temple are displayed.
+The list is categorized into:
+Normal Chadhavas
+Special Chadhavas
+Users can select the required Chadhava to view its details and proceed with participation.
+View All Chadhavas
+The View All Chadhavas button navigates to the complete Chadhava catalogue.
+My Puja → View All Chadhavas → Chadhava Listing
+Chadhavas List Screen
+Displays available Chadhava items and combos with:
+Chadhava name, description, and price.
+Normal/Special category and ratings.
+Book / Participate options.
+Special Chadhava Combos with multiple offerings.
+Users can select a Chadhava or combo to participate.
+10. Made in Bharat / Trust Section
+The lower portion of the screen contains the Swadharma brand and trust section.
+Main message:
+“Made in Bharat. Built for Bharat. Trusted by Bharat.”
+Supporting text explains that the platform is:
+Selected from wisdom
+Rooted in Vedic tradition
+Part of a lineage of parampara
+The section also displays recognition/trust logos and platform statistics.
+Examples:
+50+ Trusted Temples
+1 Lakh+ Chadhavas
+This section reinforces the credibility and cultural foundation of the platform.
+11. Bottom Navigation
+A fixed bottom navigation bar is available throughout the screen.
+It provides quick navigation to major application modules, including:
+Home
+Puja
+Astrology/Services
+Spiritual/Journey section
+Store
+Profile
+The Puja section is highlighted because the user is currently viewing the My Puja screen.
+12. Key Purpose of the Screen
+The My Puja screen acts as a dedicated discovery hub for devotional services. It combines Puja booking, festival campaigns, personalized Puja categories, temples, and Chadhavas into one screen.
+The primary objective is to help users quickly discover a suitable spiritual service based on:
+Current festivals
+Popular/trending Pujas
+Personal life challenges
+Temple availability
+Chadhava offerings
+Trusted priests and temples
+This provides users with a simple journey from discovering a spiritual service to participating in the Puja or Chadhava online.
+Normal Puja Flow
+Puja Details Screen
+Displays complete information about the selected Puja, including:
+Puja name, temple, and contribution amount.
+About the Puja and its spiritual significance.
+Temple details and related temples.
+Puja process and rituals.
+Spiritual benefits.
+Featured videos.
+Devotee reviews and experiences.
+Frequently Asked Questions (FAQs).
+Other related Pujas.
+Book Now option to participate in the Puja.
+Book Puja Flow
+The Book Puja flow guides the user through three steps:
+Date – Select the Puja date from the calendar.
+Devotee Details – Select or add the devotee participating in the Puja.
+Address – Select an existing address or add a new address.
+After completing these steps, the user proceeds to Booking Preview, reviews the details, and continues to pay.
+Special Puja Flow
+Detail Screen
+The Puja Detail screen provides complete information about the selected Puja and allows users to review the Puja before proceeding with booking or participation.
+1. Puja Header
+The top section displays:
+Puja/temple image
+Puja title
+Short description
+Location/temple name
+Puja date
+Availability/booking status
+Additional Puja information
+2. Puja Information
+This section provides additional information related to the selected Puja, such as:
+Performing temple/location
+Scheduled date
+Puja-related details
+Availability information
+3. Countdown / Booking Closing Time
+A countdown timer displays the remaining time before the Puja booking closes.
+The timer shows:
+Days
+Hours
+Minutes
+Seconds
+This helps users understand the booking deadline.
+4. About This Puja
+The About this Puja section explains the background and significance of the selected Puja.
+Example content includes information about The Legend of Maa Chamunda &amp; Bhairav and the religious/spiritual significance associated with the Puja.
+5. Why Perform This Puja at This Temple?
+This section explains why the selected temple is considered significant for performing the Puja.
+It provides information about the temple's spiritual importance and the purpose of performing the Puja at that location.
+6. Divine Puja Process
+The Divine Puja Process section explains how the Puja is performed.
+The screen displays individual process steps, such as:
+Sankalp – Personalised prayer/intention.
+Panchopachar Pujan – Ritual worship with prescribed offerings.
+7. Spiritual Benefits
+The Spiritual Benefits section highlights the expected spiritual purposes or benefits of performing the Puja.
+Examples shown include:
+Protection – Protection from negative influences.
+Prosperity – Attraction of wealth.
+8. Select Packages
+The Select Packages section allows users to choose a suitable Puja participation package.
+Each package displays:
+Package name/type
+Number of persons
+Price
+Popular/Premium indicator, where applicable
+Selection option
+Examples include:
+Individual Puja
+Partner Puja
+Small Family
+Joint Family
+The user can select one of the available packages before proceeding.
+9. Included in Packages
+This section explains what is included with the selected Puja package.
+Examples shown include:
+Prasad delivery to the user's home
+Video recording of the Puja/Sankalp
+Blessings from the sacred temple
+10. Puja Location
+The Puja takes place at a section displaying the temple where the Puja will be performed.
+Example:
+Vaishno Devi (Katra)
+The section includes:
+Temple name
+Temple description
+Temple images
+Users can browse additional temple images horizontally.
+11. Featured Videos
+The Featured Videos section provides videos related to the temple or Puja.
+Each video card contains:
+Video thumbnail
+Video title
+Playback option
+Users can swipe horizontally to browse additional videos.
+12. Devotee Experience
+This section displays feedback or reviews from devotees who have participated in the Puja.
+Each review can contain:
+Devotee name
+Rating
+Review text
+A View All option allows users to access additional reviews.
+13. Frequently Asked Questions
+The Frequently Asked Questions section provides answers to common questions related to the Puja.
+Examples include:
+What if I don't know my Gotra?
+Who performs the Puja?
+When will I receive the Prasad?
+Is the donation eligible for tax exemption?
+The questions are displayed using an expandable accordion layout.
+14. Explore Other Pujas
+The Explore Other Pujas section recommends additional Pujas that users may be interested in.
+Each Puja card can display:
+Puja image
+Special/Normal label
+Puja name
+Book Now or Participate button
+Users can swipe horizontally to browse other available Pujas.
+15. Bottom Booking Section
+A fixed bottom section provides the final booking action.
+The screen displays the selected package/booking status and a Continue button.
+The user can select a package and then click Continue to proceed with the next step of the booking/participation flow.
+User Flow
+Puja List → Select Puja → Puja Detail → Select Package → Continue →Participation
+The Puja Detail screen acts as the main information and decision-making screen, allowing users to review the Puja, temple, benefits, process, packages and FAQs before completing their booking.
+Participate Puja - Booking
+The Participate Puja screen is the first step in the Puja booking/participation flow. It allows the user to select the devotee(s) who will participate in the Puja and provide or manage their details.
+Booking Steps
+The screen displays a two-step progress flow:
+Devotee Details – Current step.
+Address – Next step.
+Devotees Detail
+The Devotees section displays the user's saved devotees.
+Each devotee entry contains:
+Full name
+Age
+Gotra
+Address
+Selection checkbox
+Edit option
+The selected devotee is highlighted with a checked checkbox.
+The screen also displays the number of selected devotees, for example 1/1 added.
+View All
+The View All option allows the user to view all saved devotees.
+Add New Devotee
+The Add new devotee button opens a form where the user can add a new devotee.
+The form contains:
+Full name – Enter first and last name.
+Age – Enter devotee's age.
+Gotra – Select the devotee's Gotra.
+Clicking Add devotee adds the new devotee to the available list.
+Next
+After selecting the required devotee, the user can click Next to proceed to the Address step.
+Booking Flow
+Puja Detail → Participate Now → Participate Members – Devotee Details → Select/Add Devotee → Next → Address
+Address Selection
+The Address step displays the user's saved addresses. The user can select an existing address or use Add Address to create a new one.
+After selecting the required address, the user can proceed with Pay &amp; Book to complete the Special Puja booking.
+Add Address
+The Add Address option allows the user to add a new address during the Special Puja booking process.
+The form contains the following fields:
+Full Name – Enter the name of the person associated with the address.
+Mobile Number – Enter the user's mobile number.
+Flat, House No. – Enter the flat or house number.
+Building, Company, Apartment – Enter the building, company, or apartment name.
+Area, Street, Sector, Village – Enter the area or street details.
+Landmark – Enter a nearby landmark for easier identification.
+PIN Code – Enter the postal PIN code.
+Town / City – Enter the town or city name.
+After entering the required address details, the user can save the address and select it for the Puja booking.
+Booking Preview
+The Booking Preview screen displays a summary of the selected Puja booking before the user proceeds to the final booking/payment step.
+The screen includes:
+Selected Puja details
+Puja date
+Selected devotee
+Selected address
+Selected package
+Package price
+Last-minute add-ons
+Edit Selected Package / Devotee Details
+The Selected Package section displays the package chosen by the user, including:
+Package name
+Number of persons
+Package price
+Edit option
+Clicking the Edit icon opens the Edit Details screen.
+The Edit Details screen displays the selected package and the Devotees section, where the user can:
+Select or deselect devotees
+Edit existing devotee details
+View all saved devotees
+Add a new devotee
+After making the required changes, clicking Done returns the user to the Booking Preview screen with the updated details.
+Last-Minute Add-ons
+The Last-Minute Add-ons section allows users to add additional Pujas or Chadhavas to the current booking.
+Each add-on includes an Add button
+Clicking the Add button opens the relevant selection screen.
+For an additional Puja, the Select Package screen is displayed, where the user can choose the required package based on the number of persons and package price.
+After selecting a package, clicking Continue adds the selected Puja package to the booking.
+The booking total is updated based on the selected add-on.
+Next
+After reviewing the booking details and making any required changes, the user can click Next to proceed to the next stage of the booking/payment flow.
+The Puja Payment screen shows the final Puja amount, including GST, and allows the user to apply a coupon and select a UPI payment option.
+Clicking Proceed to Pay completes the payment.
+Payment Success
+After successful payment, the Payment Success screen confirms the Puja booking and displays the total paid amount.
+Users can:
+Download Receipt – Download the payment receipt.
+Go to Home – Return to the Home Screen.
+Booking Flow
+Puja Detail → Participate Now → Devotee Details → Address → Booking Preview → Edit Details (if required) → Next → Payment/Booking
+Temple Detail Screen
+The Temple Detail screen displays complete information about the selected temple and provides access to its available Mandir, Pujas, and Chadhavas.
+Temple Information – Displays temple image, name, deity, and Trusted Partner status.
+Mandir – Shows temple details, deity information, and related images.
+Pujas – Displays available Special and Normal Pujas. Special Pujas include a Participate Now button.
+Chadhavas – Displays available Special and Normal Chadhavas.
+Users can select a Puja or Chadhava to view its details before booking or participating.
+Mandir Tab
+Displays detailed information about the selected temple, including:
+Temple name, deity, and Trusted Partner status.
+Story &amp; Legends about the temple.
+Temple Highlights and spiritual significance.
+Visitor Guidelines such as dress code, photography, and crowd management.
+Temple Timings for morning and evening Darshan.
+Puja and Chadhava sections with available offerings.
+Normal Chadhava Detail Screen
+The Normal Chadhava Detail screen displays complete information about the selected Chadhava before booking.
+Chadhava Information – Displays the Chadhava name, temple, contribution amount and booking information.
+About This Chadhava – Provides details about the offering and its spiritual significance.
+Divine Deity – Displays the associated temple/deity and related temple images.
+Divine Chadhava Process – Explains the steps involved in the offering.
+Featured Videos – Displays related temple and Chadhava videos.
+Devotee Experience – Shows ratings and devotee reviews.
+Frequently Asked Questions – Provides answers to common Chadhava-related questions.
+Explore Other Chadhavas – Displays other Chadhavas available to the user.
+Book Now – Allows the user to proceed with the Normal Chadhava booking flow.
+Book Chadhava Flow
+The Book Chadhava flow consists of three steps:
+Date – Select the Chadhava date.
+Devotee Details – Select or add the devotee for whom the Chadhava will be performed.
+Address – Select an existing address or add a new address.
+After completing these steps, the user proceeds to Booking Preview, reviews the Chadhava details, and clicks Pay &amp; Book to complete the booking.
+Special Chadhava Detail Screen
+The Chadhava Detail screen provides complete information about the selected Special Chadhava before booking.
+Chadhava Information – Displays temple image, Chadhava name, temple location, price, date and booking information.
+How It Works – Explains the Chadhava process and included services.
+Booking Countdown – Shows the remaining time before booking closes.
+About This Chadhava – Provides details about the offering and its spiritual significance.
+Divine Chadhava Process – Explains the steps involved in performing the offering.
+Featured Videos – Displays related temple/Chadhava videos.
+Special Chadhava Packages – Allows users to select a package based on the number of persons and price.
+Included in Packages – Shows what is included, such as Sankalp, offering, and photo/video confirmation.
+Select Package – User selects a package to proceed with Chadhava booking.
+Chadhava Booking Flow
+The Chadhava booking flow allows users to select devotees and an address before completing payment for a Special Chadhava.
+Special Chadhava – Devotee Details
+Users can select one or more devotees for the selected Chadhava. Existing devotees can be edited, and new devotees can be added.
+Address
+The user selects an existing address or adds a new address for the Chadhava booking. After selecting the address, Pay &amp; Book becomes available.
+Payment
+The Puja Payment screen displays the Chadhava amount, GST and total payable amount. Users can apply a coupon and pay using available UPI options.
+Payment Success
+After successful payment, the confirmation screen displays the total payment and booking confirmation.
+Users can:
+Download Receipt – Download the payment receipt.
+Go to Home – Return to the Home Screen.
+Flow
+Chadhava List → Select Chadhava → Special Chadhava → Select Devotee → Select/Add Address → Pay &amp; Book → Payment → Payment Success
+Astro Tab
+Swadharma Super App – Astro Screen
+1. Screen Overview
+The Astro screen is the dedicated astrology and astrologer consultation section of the Swadharma application.
+It allows users to:
+Access astrology tools such as Kundli, Horoscope, and Panchang
+Recharge their consultation wallet
+Browse and consult astrologers
+View previous consultation sessions
+Reconnect with astrologers
+Watch astrology-related videos
+Read frequently asked questions
+Explore astrologers based on different life concerns
+The screen is vertically scrollable and contains multiple horizontally scrollable sections.
+2. Header Section
+The top header displays:
+Astro – Indicates the current application module.
+Wallet Balance – Displays the user's available consultation balance, shown as ₹12,000 in the screenshot, Click to open the Wallet screen, where the user can view and manage their available consultation balance.
+Chat/Message Icon – Provides access to the user's astrology communication or chat-related functionality.
+Wallet Screens
+Wallet – Displays the available balance and transaction history, with options to filter transactions by All, Credit, or Debit.
+Add Money to Wallet – Allows users to enter or select a recharge amount, view offers, and proceed with payment.
+Recharge Payment – Shows the recharge amount, GST, coupon option, and UPI payment methods.
+Recharge Successful – Confirms successful payment and provides options to download the receipt or return to the home screen.
+Session History
+Session History – Displays ongoing and previous astrology consultation sessions.
+Active Now – Shows astrologers currently available for consultation.
+Chats / Calls – Allows switching between chat and call history.
+Conversation List – Shows astrologer names, recent messages, last active time, and unread message count.
+Wallet Balance – Displays the available consultation balance at the top.
+3. Astrology Quick Access
+Three quick-access cards are displayed below the header:
+Free Kundli
+Click on Free Kundli to open the Kundli list, then click on Create New Kundli.
+Kundli Creation Flow
+The Kundli Creation flow collects the user's birth details required to generate a Kundli.
+Step 1 – Name: Enter first and last name.
+Step 2 – Gender: Select Male, Female, or Other.
+Step 3 – Date of Birth: Select the date of birth.
+Step 4 – Birth Time: Select the exact birth time and AM/PM.
+Step 5 – Birth Place: Enter the birth location.
+After submitting all details, the Kundli is generated based on the provided information.
+Horoscope
+Provides access to horoscope-related information and predictions.
+Clicking on Horoscope opens the Horoscope screen, where users can view their horoscope details.
+Displays horoscope information based on the selected zodiac sign and day. Users can view lucky colour, lucky numbers, planet of the day, lucky time, and a detailed daily horoscope.
+Panchang
+Provides access to daily Panchang information and related astrological details.
+Clicking on Panchang redirects the user to the Panchang Detail screen, where the user can view the complete daily Panchang information.
+Today's Panchang
+The Today's Panchang screen displays daily Panchang information based on the selected location.
+Location &amp; Date Details – Displays the location, Hindu month, Paksha, Brahma Muhurat, and Rahu Kalam.
+Sunrise &amp; Moonrise – Shows sunrise, sunset, moonrise, moonset, and Sun/Moon sign.
+Tithi &amp; Paksha – Displays details such as Tithi, Yog, Karna, and Nakshatra with their end times.
+Edit – Allows the user to change the location for Panchang details.
+4. Recharge Cashback Banner
+A promotional recharge banner is displayed below the quick-access cards.
+The banner offers:
+50% Cashback!ON NEXT RECHARGE
+The RECHARGE NOW button allows users to recharge their astrology consultation balance.
+This section is intended to encourage users to maintain sufficient balance for paid consultations.
+5. Top Astrologers
+The Top Astrologers section displays highly rated or popular astrologers available for consultation.
+Astrologer Categories
+Users can filter astrologers using categories such as:
+Vedic
+Astro
+Numero
+Astrologer Card
+Each astrologer card displays:
+Profile image
+Astrologer's name
+Astrology specialization
+Languages spoken
+Years of experience
+Verification indicator
+Total orders/consultations
+Consultation price per minute
+View button
+Examples shown include:
+Astro Arhi
+Astro Pari
+The View button opens the selected astrologer's profile/details page.
+View All Astrologers
+The View all Astrologers button navigates to the complete astrologer listing.
+Astrologers List Screen
+Displays a list of available astrologers with:
+Cashback/recharge offer.
+Filters and sorting options.
+Astrologer name, specialization, languages, and experience.
+Ratings, order count, and consultation charges.
+View button to check the astrologer’s details and proceed with consultation.
+6. My Sessions
+The My Sessions section displays the user's previous or available astrology consultation sessions.
+Each session card contains information such as:
+Astrologer's name
+Session date
+Profile information
+Session History button
+Call again button
+Session History
+Allows the user to view details/history of previous consultations.
+Call Again
+Allows the user to reconnect with the same astrologer for another consultation.
+The session cards are horizontally scrollable.
+7. Talks by Astro
+The Talks by Astro section provides short astrology-related video content.
+Each video card contains:
+Astrologer thumbnail
+Video duration
+Play button
+Video title
+Astrologer name
+Examples include topics related to:
+Career changes
+Moon signs
+Other astrology predictions and guidance
+Users can horizontally scroll through the available videos and select a video to watch.
+8. Frequently Asked Questions
+The Frequently Asked Questions section provides answers to common questions about astrology consultations.
+Example questions include:
+How does an astrology consultation work?
+Are the astrologers verified?
+Is my consultation private?
+What if I am not satisfied with a session?
+The FAQ uses an expandable accordion layout.
+When a question is selected, the answer is expanded below it. Selecting it again collapses the answer.
+Example explanation shown for the consultation process:
+Users can select an astrologer, start a chat or call session, and pay only for the minutes they use. The consultation can be ended at any time.
+9. Astrologers for Life Concerns
+This section helps users find astrology services based on specific life concerns.
+Available categories include:
+Love
+Education
+Career
+Marriage
+Health
+Finance
+Each category is represented using an image and category title.
+Selecting a category allows the user to discover astrologers or consultations relevant to that particular concern.
+10. Trust &amp; Platform Statistics
+The bottom section communicates the platform's trust and service credentials.
+Main message:
+“Made in India. Built for India. Trusted by India.”
+The section displays key platform statistics, including:
+4.8 – Customer Rating
+500+ – Verified Astrologers
+10L+ – Consultations Done
+24x7 – Live Support
+This section helps establish credibility and reassures users about the availability and quality of astrology services.
+11. Bottom Navigation
+A fixed bottom navigation bar provides access to the application's major modules.
+The navigation includes options for areas such as:
+Home
+Puja/Spiritual services
+Astro
+Spiritual/Journey section
+Store
+Profile
+The Astro tab is highlighted because the user is currently on the Astro screen.
+Astro Detail
+Displays astrologer profile information such as rating, experience, languages, expertise, consultation charges, reviews, and Chat/Call options.
+12. User Flow
+The main astrology consultation flow is:
+Astro → Top Astrologers → Select Astrologer → View Profile → Start Consultation → Call/Chat
+Other available flows include:
+Astro → Free Kundli → Kundli Details
+Astro → Horoscope → Horoscope Details
+Astro → Panchang → Daily Panchang
+Astro → Recharge Now → Recharge Wallet → Consultation
+Astro → My Sessions → Session History / Call Again
+Astro → Talks by Astro → Select Video → Watch Video
+Astro → Life Concern → Select Concern → Relevant Astrologers
+13. Key Purpose of the Screen
+The Astro screen acts as a complete astrology consultation hub. It combines astrology tools, astrologer discovery, paid consultations, wallet recharge, previous sessions, educational video content, FAQs, and concern-based astrologer discovery in one place.
+The primary objective is to provide users with a simple journey from discovering an astrology service to selecting a verified astrologer and starting a consultation.
+Teerth Tab
+Swadharma App – Teerth Screen
+1. Screen Overview
+The Teerth screen is the pilgrimage and sacred-destination section of the Swadharma Super application.
+It helps users discover and explore important pilgrimage destinations across India and provides access to pilgrimage-related packages and Darshan experiences.
+The screen includes:
+Featured pilgrimage destination
+Pilgrimage booking benefits
+Divine Darshan
+Popular pilgrimage sites
+Pilgrimage packages
+Trusted temple information
+2. Header &amp; Featured Pilgrimage Banner
+The top section displays the Teerth module title along with a large promotional banner.
+The banner highlights a featured pilgrimage destination:
+Ayodhya
+It contains:
+Large destination image
+Destination name in Hindi
+Short spiritual description
+Carousel indicators
+The banner can be used to promote important pilgrimage destinations, festivals, or special pilgrimage packages.
+3. Pilgrimage Booking Benefits
+Below the banner, the screen communicates the benefits of booking pilgrimage packages through the platform.
+The displayed benefits include:
+Senior-Friendly
+Pilgrimage experiences and arrangements designed to be convenient for senior citizens.
+Stay Close to Pilgrimage Sites
+Accommodation options are arranged close to important pilgrimage locations.
+Guided Tours
+Users can receive assistance through guided pilgrimage tours.
+Priority Darshan
+Packages may provide priority access for Darshan at selected temples.
+These benefits help communicate the convenience and value of booking pilgrimage packages through Swadharma.
+4. Divine Darshan
+The Divine Darshan section provides quick access to popular temple destinations.
+The section displays circular destination cards with temple images and names.
+Examples shown include:
+Somnath
+Mallikarjun
+Mahakaleshwar
+Kedarnath
+Users can select a destination to explore its available Darshan or pilgrimage-related offerings.
+The destination list is horizontally scrollable.
+5. Explore Top Pilgrimage Sites of India
+This section displays popular pilgrimage destinations and associated pilgrimage packages.
+Each destination is presented as a detailed card.
+The cards generally contain:
+Destination/temple image
+WITH FLIGHT badge
+BUDGET FRIENDLY badge
+Destination/package name
+Short description
+Pilgrimage-related information
+The cards are vertically arranged, allowing users to browse multiple destinations.
+Package Details – Shows the Kashi–Ayodhya 5 Days / 4 Nights spiritual travel package, including itinerary, highlights, inclusions, exclusions, places to visit, rules, reviews, and FAQs.
+Post Enquiry – Users can submit their name, phone number, and special requests for additional assistance.
+Booking Form – Users select travellers, travel date, apply coupons, use wallet balance, choose accommodation, and add travel insurance.
+Booking Confirmation – After successful booking, the app displays the Booking ID, trip details, booking status, coordinator call, preparation steps, and departure information.
+6.  Destination Card Interaction
+Each pilgrimage destination card acts as a navigation point.
+Typical flow:
+Select Pilgrimage Card → View Package Details → Check Package Information → Proceed with Booking
+The detailed package screen can provide information such as itinerary, travel arrangements, accommodation, Darshan details, pricing, and booking options.
+7. Made in Bharat / Trust Section
+At the bottom of the Teerth screen, the Swadharma brand message is displayed:
+“Made in Bharat. Built for Bharat. Trusted by Bharat.”
+The section communicates that the platform is:
+Rooted in Indian spiritual traditions
+Based on Vedic wisdom
+Connected to the Indian cultural heritage
+Trust/recognition logos are also displayed.
+Platform statistics shown include:
+50+ Trusted Temples
+1 Lakh+ Chadhavas
+8. Bottom Navigation
+A fixed bottom navigation bar provides quick access to the application's major modules.
+The available navigation options include areas such as:
+Home
+Puja
+Astro
+Teerth
+Store
+Profile
+The Teerth icon is highlighted because the user is currently viewing the Teerth screen.
+9. User Flow
+The primary Teerth flow is:
+Teerth → Explore Pilgrimage Site → Select Destination → View Package Details → Book Pilgrimage
+Other flows include:
+Teerth → Divine Darshan → Select Temple → View Darshan Details
+Teerth → Featured Destination → View Destination → Explore Packages
+Teerth → Pilgrimage Package → Package Details → Booking
+10. Key Purpose of the Screen
+The Teerth screen acts as a pilgrimage discovery and booking hub for Swadharma.
+Its primary objective is to help users discover sacred destinations, Jyotirlingas, temple Darshan experiences, and pilgrimage packages while highlighting convenient travel options such as flights, guided tours, nearby stays, senior-friendly arrangements, and priority Darshan.
+The overall user journey is designed around:
+Discover → Explore → Select Pilgrimage → View Package → Book
+Store Tab
+Swadharma App – Store Screen
+1. Screen Overview
+The Store screen is the e-commerce section of the Swadharma Super application. It allows users to discover and purchase spiritual, devotional, gemstone, and lifestyle-related products.
+The screen provides:
+Product search
+Product categories
+Best-selling products
+Popular products
+Products by deity
+Products by purpose
+Products by life goal
+Zodiac-based products
+Unique spiritual collections
+Gemstone categories
+Product delivery and return information
+The screen is vertically scrollable and contains multiple horizontally scrollable product/category sections.
+2. Header Section
+The top section contains:
+Store – Identifies the current module.
+Wishlist Icon – Allows users to access saved products.
+Cart Icon – Provides access to the shopping cart.
+Search Products – Allows users to search for products by name or keyword.
+The search field also includes a microphone icon for voice-based search.
+3. Quick Product Categories
+Below the search bar, circular category shortcuts provide quick access to popular store categories.
+Examples include:
+Astro Diyas
+Health &amp; Wellness
+Gemstone
+Jap Mala
+Other spiritual product categories
+These shortcuts allow users to quickly browse products based on category.
+4. Product Trust/Service Highlights
+A small information strip is displayed below the category shortcuts.
+It highlights service attributes such as:
+24/7 assistance
+Authentic products
+Secure/verified shopping experience
+These indicators are intended to build customer confidence while shopping.
+5. Promotional Product Banner
+A large promotional banner is displayed below the category section.
+The example shown features a:
+Zodiac Pendant
+The banner contains a large product image and promotional content.
+Users can select the banner to explore the promoted product or collection.
+Carousel indicators below the banner indicate that multiple promotional banners may be available.
+6. Best Sellers
+The Best Sellers section displays products that are currently popular among customers.
+A Shop All option allows users to navigate to the complete collection.
+Product Card
+Each product card can contain:
+Product image
+Discount badge
+Wishlist icon
+Product name
+Product material/details
+Original price
+Discounted price
+Add-to-cart button
+Example products shown include:
+Akhil Jyoti
+Black Agate Protection Bracelet
+Users can directly add a product to the cart using the + button.
+7. Popular Products
+The Popular Products section showcases frequently viewed or purchased products.
+Product Filters
+Products can be filtered using categories such as:
+Gifting
+Astro
+Spiritual Wear
+Other product categories
+Example products shown include:
+Silver Pooja Thali Set
+Sandalwood Gift Box
+Each product card provides product information, pricing, discount details, wishlist functionality, and an add-to-cart option.
+View All Products
+The View All Products button navigates to the complete product catalogue.
+Popular Product – Displays a list of trending, best-selling, and new spiritual products with search, filter, sort, zodiac, wishlist, and cart options.
+Filters &amp; Variants – Users can filter products by category, purpose, price, rating, and stock, and select product colour/size before adding to cart.
+Product &amp; Checkout – Users can view product details, offers, compatibility, reviews, and add items to cart or buy directly.
+Order Confirmation – Shows the order ID, payment and delivery details, purchased items, bill summary, savings, and delivery status with an option to continue shopping.
+Wishlist Screen
+Displays products added to the user’s wishlist, with:
+Product image, name, discount, and price.
+Move to Cart option for individual items.
+Wishlist total amount and item count.
+Move All to Cart option to add all wishlist items to the cart.
+Cart icon to access the shopping cart.
+Product Details
+Product Detail – Displays the gemstone product image, name, rating, price, colour, and weight options.
+Purchase Options – Shows offers, discounts, and payment/security information.
+Compatibility Check – Allows users to check whether the gemstone suits their birth chart.
+Frequently Bought Together – Suggests complementary gemstones/products with a combo price.
+Reviews &amp; Policies – Shows customer reviews, shipping/returns information, and FAQs.
+Bottom Actions – Provides Add to Cart and Buy Now options.
+8. Shop by Deity (God)
+This section allows users to discover products associated with specific Hindu deities.
+The subtitle indicates that users can:
+Find items that align with your intentions
+Example deity categories shown include:
+Balaji
+Maa Durga
+Maa Lakshmi
+Other deity categories
+Each category contains an image and deity name.
+Selecting a deity displays products associated with that deity.
+9. Shop by Purpose
+The Shop by Purpose section helps users find products based on their intended use.
+Available categories include:
+Gifting
+Spiritual Wear
+Spiritual Home
+Pooja Essentials
+Puja Murti
+Temple Products
+Each category is displayed using an image and category title.
+Selecting a category opens the relevant product collection.
+10. Shop by Life Goal
+This section allows users to find spiritual products based on specific life goals or intentions.
+Example categories include:
+Love &amp; Relationship
+Protection &amp; Peace
+Career &amp; Success
+Spiritual Growth
+Health &amp; Wellness
+Wealth &amp; Prosperity
+The section is intended to help users discover products according to their personal goals.
+11. Zodiac Products
+The Your Zodiac section provides products based on the user's zodiac sign.
+The screenshot shows:
+Leo
+The section also indicates the availability of multiple curated products for the selected zodiac sign.
+Users can select the zodiac section to browse products recommended for their zodiac sign.
+12. Unique Collection
+The Unique Collection section contains curated spiritual collections designed around specific concepts.
+Examples include:
+Brass Idols
+Collection focused on traditional brass spiritual/decorative idols.
+Vastu
+Products associated with Vastu and positive surroundings.
+Yantra Collection
+Products intended to support spiritual practices and positivity.
+Each collection includes:
+Collection name
+Short description
+Representative image
+Selecting a collection opens the associated product listing.
+13. Gem Stone Categories
+The Gem Stone Categories section provides access to different types of spiritual and gemstone products.
+The section describes these as curated collections of authentic spiritual products.
+Categories shown include:
+Bracelets
+Pendants
+Comics
+Rudraksha
+Gemstones
+Pyramids
+Tumbles
+Anklets
+Each category includes an image and short description.
+Selecting a category opens the relevant gemstone/product collection.
+14. Store Service &amp; Trust Information
+Near the bottom of the screen, the platform communicates its shopping service benefits.
+The section displays:
+“Made in India. Built for India. Trusted by India.”
+It also highlights key shopping metrics and service promises, including:
+1–3 Days – Fast pan-India delivery
+500+ – Curated products
+4.8 – Customer rating
+Easy returns – Hassle-free return policy
+This section is intended to build trust and communicate the quality and convenience of the shopping experience.
+15. Product Discovery Flow
+The Store provides multiple ways for users to discover products:
+Search Flow
+Store → Search Products → Search Result → Product Details → Add to Cart
+Category Flow
+Store → Category → Product Listing → Product Details → Add to Cart
+Purpose-Based Flow
+Store → Shop by Purpose → Select Purpose → Relevant Products
+Deity-Based Flow
+Store → Shop by Deity → Select Deity → Relevant Products
+Zodiac Flow
+Store → Your Zodiac → Select Zodiac → Recommended Products
+Gemstone Flow
+Store → Gem Stone Categories → Select Category → Product Listing
+16. Product Purchase Flow
+The general purchase journey is:
+Store → Select Product → Product Details → Add to Cart → Cart → Checkout → Payment → Order Confirmation
+Users can also add products directly to the cart from product cards using the + button.
+17. Bottom Navigation
+A fixed bottom navigation bar provides access to the major modules of the application.
+The navigation includes options for areas such as:
+Home
+Puja
+Astro
+Teerth/Spiritual section
+Store
+Profile
+The Store icon is highlighted because the user is currently viewing the Store screen.
+18. Key Purpose of the Screen
+The Store screen acts as the main shopping and product-discovery hub of Swadharma Super App.
+Instead of relying only on traditional product categories, it provides several personalized discovery methods, including:
+What the user wants – Shop by Purpose
+Who the user follows – Shop by Deity
+What the user wants to achieve – Shop by Life Goal
+What matches the user's zodiac – Zodiac Products
+What spiritual category interests the user – Gemstone Categories and Unique Collections
+The overall journey is designed around:
+Discover → Explore → Select Product → Add to Cart → Checkout → Purchase
+Profile Tab
+Swadharma App – My Profile Screen
+1. Screen Overview
+The My Profile screen is the user's account and personal settings section of the Swadharma Super  application.
+It provides access to:
+User profile information
+Wallet balance
+Vouchers
+Orders
+Referral rewards
+Payment methods
+Saved addresses
+Help and support
+Language settings
+FAQs
+Logout
+The screen is vertically scrollable and provides a centralized location for managing account-related information and preferences.
+2. Header Section
+The top section contains:
+Back Arrow – Allows the user to return to the previous screen.
+My Profile – Screen title.
+Below the header, the user's basic account information is displayed.
+User Information
+The profile header contains:
+User avatar/profile placeholder
+User name
+User ID
+Example shown:
+Ayush Parashar
+The user ID is displayed below the name for account identification.
+3. Account Summary
+A summary card provides quick access to important account-related services.
+The card contains three options:
+Vouchers
+Allows users to view and use available vouchers, coupons, and promotional offers. Clicking on a voucher opens its details.
+- Search: Find vouchers quickly.
+- Categories: Filter vouchers by Puja, Astro, Teerth, Store, or view All.
+- Voucher Details: Displays the discount percentage, offer type, and validity date.
+Wallet
+Displays the user's current wallet balance.
+Example shown:
+₹12,000
+Selecting the Wallet option allows the user to manage or view wallet-related transactions.
+My Orders
+Provides access to the user's order history.
+Users can view previously placed orders and their associated details.
+Puja &amp; Chadhava Orders Screen
+Gives orders list of all the puja &amp; chadhavas booked by a user along with order details
+Store Orders Screen
+Gives orders list of all products purchased form store
+Order details screen is also there to display details like delivery timeline , order summary , options for cancellation or replacement depending on the time elapsed
+Further screens shows the flow to cancel an order or report any issue related to order
+Teerth Orders Screen
+First screen shows the list of all booking done via teerth vertical
+Next screen is booking details screen giving booking summary and contact us option
+Booking cannot be cancelled or rescheduled by user individually, user has to contact customer support for any issues in case of teerth booking.
+4. Refer &amp; Earn
+The Refer &amp; Earn section allows users to invite friends using a referral code and earn rewards.
+Referral Code: Users can copy and share their code.
+Invite Friends: Share via WhatsApp, Copy Link, or other apps.
+Reward: Both the user and friend receive ₹100 after the friend completes the first eligible order.
+Wallet Reward: The referral reward is automatically credited to the wallet.
+How It Works: Share code → Friend signs up and places an eligible order → Reward is credited after verification.
+5. Profile
+Clicking the Profile option opens the Profile List screen, where users can view existing profiles and add or manage additional personal or family profiles.
+The Profile List allows users to manage multiple personal and family profiles. Users can view existing profiles, edit profile details, and add new profiles for family members.
+6. Payment Methods
+The Payment Methods option allows users to manage payment methods used for purchases, Puja bookings, Astro consultations, and other paid services.
+Add: Add a new UPI ID, Card, or Bank Account.
+Edit: Update saved payment details.
+Details: View details, set a method as default, or remove it.
+Save Changes: Save the updated payment preferences.
+7. My Addresses
+The My Addresses section allows users to manage their saved delivery addresses.
+This is primarily useful for Store purchases.
+Users can:
+View saved addresses
+Add a new address
+Edit an existing address
+Select an address for delivery
+8. Help &amp; Support
+The Help &amp; Support section provides users with assistance for common issues related to:
+Orders and payments
+Puja and Chadhava services
+Astrology consultations
+Store products
+Wallet and account-related issues
+Users can also search FAQs, raise support tickets, and track recent support requests.
+The Report an Issue flow allows users to report a problem with a Puja.
+Select Puja/ Chadhava / Wallet or Astro : Choose and proceed with the complaint.
+Resolution Options: Users can request a refund to the wallet, reschedule the consultation, clarification, or callback.
+Additional Notes: Users can add optional details about the issue.
+Confirmation: After submission, an “Issue reported” message confirms that the support team will review the request.
+9. Language
+The language preference is displayed as:
+Language : English
+This option allows the user to change the application's supported language.
+Selecting the option opens the available language selection screen.
+10. FAQs
+Selecting the FAQ option navigates to the FAQ screen.
+The FAQs option provides access to frequently asked questions.
+Users can find answers to common questions regarding application features, services, payments, orders, and account-related functionality.
+11. Logout
+The Logout option allows the user to securely sign out of their Swadharma Super account.
+Selecting Logout should end the current authenticated session and redirect the user to the appropriate login/authentication screen.
+12. Bottom Navigation
+A fixed bottom navigation bar provides quick access to the application's main modules.
+The navigation includes:
+Home
+Puja / Temple
+Astro
+Teerth
+Store
+Profile
+The Profile tab is highlighted because the user is currently on the My Profile screen.
+13. User Flow
+The main profile navigation flow is:
+Profile → My Profile → Select Required Account Option
+Examples:
+My Profile → Profile → Profile List
+My Profile → Wallet → View Wallet Balance/Transactions
+My Profile → My Orders → View Order History
+My Profile → Payment Methods → Manage Payment Methods
+My Profile → My Addresses → Manage Delivery Addresses
+My Profile → Help &amp; Support → Get Assistance
+My Profile → Language → Select Language
+My Profile → FAQs → View Frequently Asked Questions
+My Profile → Logout → Sign Out
+14. Key Purpose of the Screen
+The My Profile screen acts as the central account-management hub of the Swadharma Super application.
+It brings together the user's personal information, wallet, vouchers, orders, referral program, payment methods, delivery addresses, support options, language preferences, FAQs, and logout functionality in one place.
+The overall navigation structure is designed to provide users with quick and organized access to all account-related settings and services.
+Login &amp; Signup
+Login
+Users can log in using their mobile number. An OTP/6-digit verification code is sent to the registered number, which is entered to verify the user and access the account.
+Login Required for Booking – Users must log in before proceeding with any booking or participation. If the user is not logged in, a login bottom sheet is displayed.
+Login Required to Access Personal Details – Users must log in to view or manage their personal details.
+Signup
+New users can create an account by entering their first name, last name, gender, date of birth, birth time, birth place, and mobile number. After mobile number verification through OTP, the account setup is completed.

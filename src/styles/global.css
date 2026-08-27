@@ -1,0 +1,267 @@
+:root {
+  /* brand — the logo's terracotta, used as an ACCENT rather than as chrome.
+     The chrome is light (white and warm cream); colour is spent only where it
+     has to work: CTAs, active states, accent type. That is what keeps the page
+     calm and lets the full-colour logo sit on it without fighting. */
+  --brand: #a8402f;
+  --brand-deep: #872f21;
+  --brand-soft: #c85030;
+  --brand-wash: #fdf1ec;
+
+  --orange: #d04725;
+  --orange-deep: #b03a1c;
+  --orange-soft: #f8c9b2;
+  --orange-pale: #fbe3d8;
+  --orange-wash: #fdf0f1;
+  --peach-btn: #f6bfa6;
+
+  /* neutrals — every one sits on a warm axis. Cool greys next to a terracotta
+     accent are what read as cheap; warming the whole ramp is most of the
+     "expensive" feel. */
+  --ink: #1f1512;
+  --ink-soft: #5a4a42;
+  --grey: #8c7b73;
+  --grey-light: #b8a89f;
+  --line: #ece3dc;
+  --line-soft: #f6f0ea;
+  --bg: #ffffff;
+  --bg-alt: #fffaf5;
+  --cream: #fff8f1;
+
+  /* accents */
+  --gold: #e0a44a;
+  --green: #208843;
+  --tithi-a: #1d1a18;
+  --tithi-b: #3b2a21;
+
+  /* shape */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-pill: 999px;
+
+  --shadow-card: 0 4px 18px rgba(48, 16, 26, 0.09);
+  --shadow-lift: 0 12px 32px rgba(48, 16, 26, 0.16);
+  --shadow-cta: 0 10px 24px rgba(208, 71, 37, 0.26);
+
+  --wrap: 1200px;
+  --header-h: 72px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+ul { list-style: none; }
+
+/* ---------- layout helpers ---------- */
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+.section { padding-block: 48px 8px; }
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 22px;
+}
+
+.section-title {
+  font-size: clamp(24px, 2.4vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.section-sub {
+  margin-top: 6px;
+  font-size: 15px;
+  color: var(--grey);
+}
+
+.section-link {
+  flex: none;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--orange-deep);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap 0.18s ease;
+}
+.section-link:hover { gap: 11px; }
+
+/* ---------- the app's full-width orange CTA ---------- */
+.cta-wide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 26px;
+  padding: 17px 24px;
+  border-radius: var(--r-md);
+  background: var(--orange);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: var(--shadow-cta);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.cta-wide:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(208, 71, 37, 0.34); }
+.cta-wide:active { transform: translateY(0); }
+.cta-wide .arrow { transition: transform 0.18s ease; }
+.cta-wide:hover .arrow { transform: translateX(5px); }
+
+/* ---------- filter chips (Love / Career / Marriage …) ---------- */
+.chip-row {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 22px;
+  scrollbar-width: none;
+}
+.chip-row::-webkit-scrollbar { display: none; }
+
+.chip {
+  flex: none;
+  padding: 9px 20px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line);
+  background: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  transition: 0.16s ease;
+}
+.chip:hover { border-color: var(--orange-soft); color: var(--orange-deep); }
+.chip.active {
+  background: var(--orange-pale);
+  border-color: var(--orange-pale);
+  color: var(--orange-deep);
+  font-weight: 700;
+}
+
+/* ---------- horizontal rail (mirrors the app's carousels) ---------- */
+.rail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(258px, 1fr);
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+.rail::-webkit-scrollbar { display: none; }
+.rail > * { scroll-snap-align: start; }
+
+/* Below 640 a rail stays a swipeable row, as in the app. From tablet up it
+   wraps into a grid — a horizontally scrolling row leaves cards sliced at the
+   edge, which reads as broken on a wide screen. */
+@media (min-width: 640px) {
+  .rail {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(2, 1fr);
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+}
+@media (min-width: 900px) {
+  .rail { grid-template-columns: repeat(4, 1fr); }
+  .rail.cols-3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .wrap { padding-inline: 16px; }
+  .section { padding-block: 34px 4px; }
+  .section-head { margin-bottom: 16px; }
+}
+
+/* ============================================================
+   Mobile app shell
+
+   Everything below is scoped to the mobile breakpoint so the desktop
+   layout is byte-for-byte what it was. The goal is that an installed
+   Add-to-Home-Screen copy feels like the APK, not like a page.
+   ============================================================ */
+@media (max-width: 860px) {
+  html {
+    /* no rubber-band that reveals the browser behind the app */
+    overscroll-behavior-y: none;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    /* kill the grey flash on tap and the iOS long-press callout on chrome */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+
+  /* text in content stays selectable; app chrome does not */
+  .hdr, .bnav, .ftr, .fchips, .chip-row, .hero-cats, .type-tabs {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* buttons feel pressed rather than hovered */
+  button, a { -webkit-tap-highlight-color: transparent; }
+  .cta-wide:active,
+  .ps-cta:active,
+  .pj-card:active,
+  .ch-card:active,
+  .pr-card:active,
+  .pk-card:active { transform: scale(0.985); }
+
+  /* horizontal rails get momentum, like a native list */
+  .rail, .chip-row, .hero-cats, .st-cats, .ps-track {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* an app's footer is a legal strip, not four columns of links */
+  .ftr-top,
+  .ftr-apps { display: none; }
+  .ftr-bottom {
+    margin-top: 0;
+    padding: 20px 0 8px;
+    border-top: none;
+    justify-content: center;
+    text-align: center;
+  }
+  .ftr-bottom ul { justify-content: center; }
+}
+
+/* Installed (standalone) on a phone — no browser chrome, so the header sits
+   under the status bar and needs the inset. Scoped to mobile so an installed
+   desktop copy is untouched. */
+@media (display-mode: standalone) and (max-width: 860px) {
+  .hdr-main { padding-top: env(safe-area-inset-top, 0px); }
+}

@@ -1,0 +1,62 @@
+.cd {
+  border-radius: var(--r-md);
+  border: 1px solid var(--orange-soft);
+  background: var(--orange-wash);
+}
+
+.cd-card { padding: 16px 18px; margin-top: 16px; }
+
+.cd-head { display: flex; align-items: flex-start; gap: 12px; }
+.cd-ic { font-size: 19px; line-height: 1.2; }
+.cd-head strong { display: block; font-size: 14.5px; font-weight: 700; color: var(--orange-deep); }
+.cd-head small { display: block; margin-top: 3px; font-size: 12.5px; line-height: 1.45; color: var(--grey); }
+
+.cd-boxes { display: flex; gap: 8px; margin-top: 14px; }
+
+.cd-box {
+  flex: 1;
+  min-width: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 9px 4px;
+  border-radius: var(--r-sm);
+  background: #fff;
+  border: 1px solid var(--line);
+}
+.cd-box b {
+  font-size: 21px; font-weight: 800;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.cd-box span { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; color: var(--grey); }
+
+/* under 24 hours the card shifts to the urgent palette */
+.cd-card.urgent { border-color: #f5b8b8; background: #fdeeee; }
+.cd-card.urgent .cd-head strong { color: #b91c1c; }
+.cd-card.urgent .cd-box b { color: #b91c1c; }
+
+.cd-closed {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px; margin-top: 16px;
+  border-color: var(--line);
+  background: var(--bg-alt);
+}
+.cd-closed strong { font-size: 14.5px; font-weight: 700; color: var(--grey); }
+.cd-closed small { display: block; margin-top: 2px; font-size: 12.5px; color: var(--grey-light); }
+
+/* compact form for the booking-flow header */
+.cd-inline {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 6px 13px;
+  border-radius: var(--r-pill);
+  background: var(--orange-wash);
+  border: 1px solid var(--orange-soft);
+  color: var(--orange-deep);
+  font-size: 13px; font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.cd-inline.urgent { background: #fdeeee; border-color: #f5b8b8; color: #b91c1c; }
+
+@media (max-width: 620px) {
+  .cd-box b { font-size: 18px; }
+  .cd-box span { font-size: 8.5px; }
+}

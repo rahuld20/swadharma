@@ -1,0 +1,168 @@
+/* ============================================================
+   PDP blocks that differ between Normal and Special
+   ============================================================ */
+
+/* schedule strip — special = fixed event, normal = recurring */
+.sched {
+  display: flex; align-items: flex-start; gap: 14px;
+  margin-top: 18px;
+  padding: 15px 18px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+}
+.sched-ic { font-size: 20px; line-height: 1.2; }
+.sched strong { display: block; font-size: 15px; font-weight: 700; }
+.sched small { display: block; margin-top: 3px; font-size: 13.5px; line-height: 1.5; color: var(--grey); }
+
+.sched-special { background: #fff6ee; border-color: var(--orange-soft); }
+.sched-special strong { color: var(--orange-deep); }
+.sched-normal { background: var(--bg-alt); border-color: var(--line); }
+.sched-normal strong { color: var(--ink-soft); }
+
+/* buy-panel type tag */
+.panel-tag { display: inline-block; margin-bottom: 12px; }
+
+/* special: fixed muhurat line */
+.pd-fixed {
+  margin: 10px 0 4px;
+  padding: 9px 13px;
+  border-radius: var(--r-sm);
+  background: var(--orange-wash);
+  color: var(--orange-deep);
+  font-size: 13.5px; font-weight: 700;
+}
+
+/* normal: per-unit rate */
+.pd-rate { margin-top: 6px; font-size: 13.5px; color: var(--grey); }
+
+/* normal: quantity / devotee stepper block */
+.pd-count { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.pd-count small { font-size: 12.5px; color: var(--grey); }
+
+/* normal puja: read-only preview of upcoming dates */
+.pd-dates-preview { display: flex; flex-wrap: wrap; gap: 7px; }
+.pd-dates-preview span {
+  padding: 6px 11px;
+  border-radius: var(--r-sm);
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  font-size: 12.5px; font-weight: 600; color: var(--ink-soft);
+}
+
+.pd-hint { margin-top: 10px; font-size: 12.5px; color: var(--grey); }
+
+.pd-cartlink {
+  display: block; margin-top: 12px;
+  padding: 11px 14px;
+  border-radius: var(--r-sm);
+  background: var(--bg-alt);
+  font-size: 13.5px; font-weight: 700; color: var(--orange-deep);
+  text-align: center;
+}
+.pd-cartlink:hover { background: var(--orange-pale); }
+
+/* the normal-chadhava panel stacks two buttons */
+.pd-buy .cd-actions { flex-direction: column; gap: 10px; margin-top: 18px; }
+.pd-buy .cd-actions .cd-cart,
+.pd-buy .cd-actions .cta-wide { width: 100%; margin-top: 0; }
+
+@media (max-width: 620px) {
+  .pd-dates-preview span { font-size: 11.5px; padding: 5px 9px; }
+}
+
+/* ---- Normal / Special chip on chadhava cards ---- */
+.ch-type {
+  position: absolute; top: 12px; left: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 9.5px; font-weight: 700; letter-spacing: 0.07em;
+}
+.ch-type.special { background: var(--orange); color: #fff; }
+.ch-type.normal { background: var(--line-soft); color: var(--ink-soft); }
+
+/* the marketing badge moves down when a type chip is present */
+.ch-card-media .ch-type + .ch-card-badge { top: 42px; }
+
+.ch-type.inline {
+  position: static;
+  align-self: flex-start;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+/* group heading note inside the temple's chadhava tab */
+.td-h-note {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px; font-weight: 400;
+  letter-spacing: 0;
+  color: var(--grey);
+}
+
+/* ---- sub-tabs inside the temple's Puja / Chadhava tabs (light background) ---- */
+.type-tabs.light { margin-bottom: 16px; }
+.type-tabs.light .type-tab {
+  border-color: var(--line);
+  color: var(--ink-soft);
+  background: #fff;
+}
+.type-tabs.light .type-tab:hover:not(:disabled) {
+  border-color: var(--orange-soft);
+  background: var(--orange-wash);
+  color: var(--orange-deep);
+}
+.type-tabs.light .type-tab.on {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+.type-tabs.light .type-tab i { background: var(--line-soft); color: var(--grey); }
+.type-tabs.light .type-tab.on i { background: rgba(255, 255, 255, 0.3); color: #fff; }
+.type-tabs.light .type-tab:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-style: dashed;
+}
+
+/* explainer under a selected sub-tab */
+.sub-note {
+  margin: -4px 0 18px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--grey);
+}
+
+/* a type with nothing at this temple stays clickable — just quieter */
+.type-tabs.light .type-tab.empty:not(.on) { color: var(--grey-light); }
+.type-tabs.light .type-tab.empty:not(.on) i { opacity: 0.6; }
+
+/* empty state inside a temple's Puja / Chadhava sub-tab */
+.type-empty {
+  padding: 30px 26px;
+  border: 1px dashed var(--line);
+  border-radius: var(--r-lg);
+  background: var(--bg-alt);
+  text-align: center;
+}
+.type-empty p { font-size: 15.5px; color: var(--grey); }
+.type-empty strong { color: var(--ink); font-weight: 700; }
+.type-empty-actions {
+  display: flex; flex-wrap: wrap; gap: 12px;
+  justify-content: center;
+  margin-top: 18px;
+}
+.type-empty-actions button,
+.type-empty-actions a {
+  padding: 11px 20px;
+  border-radius: var(--r-pill);
+  font-size: 14px; font-weight: 700;
+  transition: 0.16s ease;
+}
+.type-empty-actions button {
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+  background: #fff;
+}
+.type-empty-actions button:hover { border-color: var(--ink); }
+.type-empty-actions a { background: var(--orange); color: #fff; }
+.type-empty-actions a:hover { background: var(--orange-deep); }

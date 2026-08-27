@@ -1,0 +1,82 @@
+/* ============================================================
+   Floating tab bar — mobile only.
+
+   Mirrors the APK: a dark pill hovering over the content with the
+   active tab in a saffron circle. Above the mobile breakpoint the
+   whole component is display:none, so desktop is untouched.
+   ============================================================ */
+.bnav { display: none; }
+
+@media (max-width: 860px) {
+  .bnav {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    /* clears the home indicator on notched phones */
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    z-index: 150;
+    padding-inline: 14px;
+    pointer-events: none;
+  }
+
+  .bnav ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    max-width: 440px;
+    margin-inline: auto;
+    padding: 8px 10px;
+    border-radius: var(--r-pill);
+    background: #17100e;
+    box-shadow: 0 10px 30px rgba(23, 16, 14, 0.34);
+    pointer-events: auto;
+  }
+
+  .bnav li { flex: 1; display: flex; justify-content: center; }
+
+  .bnav-tab {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.82);
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.16s ease, background 0.2s ease, transform 0.14s ease;
+  }
+  .bnav-tab:active { transform: scale(0.9); }
+
+  .bnav-ic { display: grid; place-items: center; }
+
+  /* the active tab takes the app's saffron disc */
+  .bnav-tab.on {
+    background: linear-gradient(150deg, var(--orange), var(--brand));
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(208, 71, 37, 0.5);
+  }
+
+  /* the brand mark keeps its own colours, so it gets a light disc instead */
+  .bnav-tab.brand { background: #fff; }
+  .bnav-tab.brand.on { box-shadow: 0 0 0 2px var(--orange); }
+  .bnav-tab.brand img { width: 30px; height: 30px; object-fit: contain; }
+
+  /* page content clears the floating bar (bar occupies 10px + 62px) */
+  body { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+
+  /* Page-level sticky CTAs stack above the bar instead of hiding under it.
+     `body ` raises specificity over the same selectors in flows.css/pages.css,
+     which load later in the bundle. */
+  body .pd-bar,
+  body .dt-sticky {
+    bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  }
+  body .td-cartbar {
+    bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+  }
+
+  /* toast rides above the bar too */
+  body .toast { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+}

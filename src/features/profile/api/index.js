@@ -1,0 +1,18 @@
+/** Profile / account feature data access. */
+export {
+  ADDRESS_TAGS,
+  DEFAULT_ADDRESSES,
+  DEFAULT_PAYMENTS,
+  GENDERS,
+  ISSUE_SUBJECTS,
+  LANGUAGES,
+  PAYMENT_KINDS,
+  PROFILE_FAQS,
+  REFERRAL,
+  RELATIONS,
+  RESOLUTIONS,
+  SUPPORT_TOPICS,
+  USER,
+  VOUCHERS,
+  VOUCHER_CATS,
+} from '@/lib/data/profile'
