@@ -1,0 +1,40 @@
+{
+  "name": "SwaDharma — Your Journey Within and Beyond",
+  "short_name": "SwaDharma",
+  "description": "Book pujas and chadhava at trusted temples, consult verified astrologers, plan teerth yatras and shop authentic spiritual products.",
+  "start_url": "/#/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fff8f1",
+  "theme_color": "#ffffff",
+  "categories": ["lifestyle", "shopping", "travel"],
+  "lang": "en-IN",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    { "name": "Book a Puja", "url": "/#/puja", "icons": [{ "src": "/img/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Talk to an Astrologer", "url": "/#/astrologers", "icons": [{ "src": "/img/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Teerth Yatra", "url": "/#/teerth", "icons": [{ "src": "/img/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Store", "url": "/#/store", "icons": [{ "src": "/img/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
