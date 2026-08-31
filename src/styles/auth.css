@@ -18,13 +18,14 @@
   /* phones read top-down, as the app does; desktop centres the card below */
   justify-content: flex-start;
   overflow: hidden;
-  background: #17100e;
-  color: #fff;
+  background: var(--bg);
+  color: var(--ink);
   padding:
     calc(44px + env(safe-area-inset-top, 0px)) 22px
     calc(40px + env(safe-area-inset-bottom, 0px));
 }
-.auth.light { background: var(--cream); color: var(--ink); }
+/* `.light` is kept as a no-op so existing markup keeps working */
+.auth.light { background: var(--bg); }
 
 /* the mandala sits on its own layer: fixed aspect, its own opacity, and it
    cannot affect the content box */
@@ -37,10 +38,10 @@
   aspect-ratio: 1200 / 520;
   transform: translateX(-50%);
   background: url('/img/mandala.svg') bottom center / contain no-repeat;
-  opacity: 0.26;
+  opacity: 0.42;
   pointer-events: none;
 }
-.auth.light::after { opacity: 0.5; }
+.auth.light::after { opacity: 0.42; }
 
 .auth-inner {
   position: relative;
@@ -68,7 +69,7 @@
   line-height: 1.24;
   letter-spacing: -0.02em;
 }
-.auth-h2 { font-size: 21px; font-weight: 600; color: rgba(255, 255, 255, 0.7); }
+.auth-h2 { font-size: 21px; font-weight: 600; color: var(--grey); }
 .auth.light .auth-h2 { color: var(--grey); }
 .auth-q { margin-top: 4px; font-size: clamp(23px, 5.6vw, 27px); font-weight: 800; letter-spacing: -0.02em; }
 .auth-q.big { margin-top: 0; }
@@ -77,10 +78,10 @@
   margin-top: 10px;
   font-size: 14.5px;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.66);
+  color: var(--ink-soft);
 }
-.auth-sub.dark { color: var(--grey); }
-.auth-sub a { color: var(--orange-soft); }
+.auth-sub.dark { color: var(--ink-soft); }
+.auth-sub a { color: var(--orange-deep); }
 
 /* ---------- fields ---------- */
 .auth-label {
@@ -88,16 +89,15 @@
   margin: var(--auth-gap) 0 8px;
   font-size: 12.5px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.62);
+  color: var(--ink-soft);
 }
-.auth.light .auth-label { color: var(--ink-soft); }
 
 .auth-phone,
 .auth-field {
   height: 54px;
   border-radius: var(--r-md);
   background: #fff;
-  border: 1.5px solid transparent;
+  border: 1.5px solid var(--line);
   font-size: 16px;
   color: var(--ink);
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
@@ -141,7 +141,7 @@
   width: 100%;
   aspect-ratio: 1;
   border-radius: var(--r-md);
-  border: 1.5px solid transparent;
+  border: 1.5px solid var(--line);
   background: #fff;
   font: inherit; font-size: 24px; font-weight: 800; text-align: center;
   color: var(--ink);
@@ -151,32 +151,32 @@
 .auth-otp input:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(208, 71, 37, 0.18); }
 .auth-otp.err input { border-color: #e5484d; }
 
-.auth-err { margin-top: 12px; font-size: 13.5px; font-weight: 600; color: #ff9095; }
-.auth.light .auth-err { color: #c02026; }
+.auth-err { margin-top: 12px; font-size: 13.5px; font-weight: 600; color: #c02026; }
 
 .auth-demo {
   margin-top: 16px;
   padding: 11px 14px;
   border-radius: var(--r-sm);
-  border: 1px dashed rgba(255, 255, 255, 0.22);
+  border: 1px dashed var(--orange-soft);
+  background: var(--orange-wash);
   font-size: 12.5px;
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--orange-deep);
 }
-.auth-demo b { color: #fff; letter-spacing: 0.18em; font-size: 14px; }
+.auth-demo b { color: var(--ink); letter-spacing: 0.18em; font-size: 14px; }
 
 .auth-resend {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
   margin-top: 16px;
   font-size: 13.5px;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--ink-soft);
 }
 .auth-resend button {
-  font: inherit; font-weight: 700; color: var(--orange-soft);
+  font: inherit; font-weight: 700; color: var(--orange-deep);
   text-decoration: underline; padding: 0;
 }
-.auth-resend button:disabled { color: rgba(255, 255, 255, 0.35); text-decoration: none; cursor: default; }
-.auth-timer { font-weight: 700; color: var(--orange-soft); font-variant-numeric: tabular-nums; }
+.auth-resend button:disabled { color: var(--grey-light); text-decoration: none; cursor: default; }
+.auth-timer { font-weight: 700; color: var(--orange-deep); font-variant-numeric: tabular-nums; }
 
 /* ---------- actions ---------- */
 .auth-cta,
@@ -191,12 +191,10 @@
 }
 .auth-cta { margin-top: 26px; background: var(--orange); color: #fff; }
 .auth-cta:hover:not(:disabled) { background: var(--orange-deep); transform: translateY(-1px); }
-.auth-cta:disabled { background: var(--peach-btn); cursor: not-allowed; }
+.auth-cta:disabled { background: var(--orange-pale); color: var(--ink-soft); cursor: not-allowed; }
 
-.auth-skip { margin-top: 10px; background: transparent; color: rgba(255, 255, 255, 0.66); }
-.auth.light .auth-skip { color: var(--grey); }
-.auth-skip:hover { background: rgba(255, 255, 255, 0.07); }
-.auth.light .auth-skip:hover { background: var(--bg-alt); }
+.auth-skip { margin-top: 10px; background: var(--orange-pale); color: var(--orange-deep); }
+.auth-skip:hover { background: var(--orange-soft); }
 
 .auth-actions { margin-top: 30px; }
 .auth-actions .auth-cta { margin-top: 0; }
@@ -206,9 +204,8 @@
   font-size: 12.5px;
   line-height: 1.5;
   text-align: center;
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--ink-soft);
 }
-.auth-terms.dark { color: var(--grey-light); }
 .auth-terms a { text-decoration: underline; }
 
 /* ---------- "Or / Log in with email" ---------- */
@@ -217,22 +214,22 @@
   margin: 20px 0 14px;
   text-align: center;
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--ink-soft);
 }
 .auth-or::before {
   content: '';
   position: absolute; left: 0; right: 0; top: 50%;
-  border-top: 1px solid rgba(255, 255, 255, 0.13);
+  border-top: 1px solid var(--line);
 }
-.auth-or span { position: relative; padding: 0 14px; background: #17100e; }
+.auth-or span { position: relative; padding: 0 14px; background: var(--bg); }
 
 .auth-alt {
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
-  background: transparent;
-  color: #fff;
+  border: 1.5px solid var(--orange);
+  background: var(--orange-wash);
+  color: var(--orange-deep);
   font-size: 15px;
 }
-.auth-alt:hover { background: rgba(255, 255, 255, 0.07); border-color: rgba(255, 255, 255, 0.32); }
+.auth-alt:hover { background: var(--orange-pale); }
 
 /* ---------- signup steps ---------- */
 .auth-top {
@@ -250,7 +247,7 @@
 .auth-back:hover { border-color: var(--orange); color: var(--orange-deep); }
 .auth-step {
   font-size: 13px; font-weight: 700;
-  color: var(--grey);
+  color: var(--ink-soft);
   font-variant-numeric: tabular-nums;
 }
 
@@ -300,7 +297,7 @@
 .auth-cities .none { padding: 13px 14px; font-size: 14px; color: var(--grey); }
 
 /* ---------- intro screens ---------- */
-.wel-kicker { font-size: 14px; font-weight: 600; color: var(--orange-soft); }
+.wel-kicker { font-size: 14px; font-weight: 600; color: var(--orange-deep); }
 .wel-title {
   margin-top: 8px;
   font-size: clamp(27px, 6.8vw, 33px);
@@ -308,13 +305,13 @@
 }
 .wel-title span { display: block; }
 .wel-art { align-self: center; width: min(300px, 82%); height: auto; margin-top: 26px; }
-.wel-note { margin-top: 22px; font-size: 14.5px; line-height: 1.6; color: rgba(255, 255, 255, 0.66); }
+.wel-note { margin-top: 20px; font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); text-align: center; }
 
 .wel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 22px; }
 .wel-dots button {
   width: 7px; height: 7px;
   border-radius: var(--r-pill);
-  background: rgba(255, 255, 255, 0.28);
+  background: var(--grey-light);
   transition: 0.2s ease;
 }
 .wel-dots button.on { width: 26px; background: var(--orange); }
@@ -326,15 +323,10 @@
     max-width: 440px;
     padding: 44px 44px 40px;
     border-radius: var(--r-xl);
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.09);
-  }
-  .auth.light .auth-inner {
     background: #fff;
-    border-color: var(--line);
+    border: 1px solid var(--line);
     box-shadow: var(--shadow-card);
   }
-  .auth-or span { background: transparent; }
 }
 
 @media (max-width: 400px) {
@@ -351,19 +343,18 @@
   font-weight: 700;
   letter-spacing: 0.09em;
   text-transform: uppercase;
-  color: var(--orange-soft);
+  color: var(--orange-deep);
 }
-.auth-eyebrow.dark { color: var(--orange-deep); }
 
 .auth-hint {
   margin-top: 14px;
   padding: 12px 14px;
   border-radius: var(--r-sm);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--bg-alt);
   border-left: 2px solid var(--orange);
   font-size: 13px;
   line-height: 1.55;
-  color: rgba(255, 255, 255, 0.66);
+  color: var(--ink-soft);
 }
 
 .auth-edit {
@@ -382,3 +373,12 @@
 .auth-verified span { font-weight: 800; }
 
 .auth-resend > span:first-child { min-width: 0; }
+
+/* the intro screens are centre-aligned in the app */
+.auth.wel .auth-inner { text-align: center; align-items: center; }
+.auth.wel .auth-logo { align-self: center; margin-bottom: 44px; }
+/* centring the column shrink-wraps its children, so the buttons opt back
+   out to full width the way the app has them */
+.auth.wel .auth-actions { align-self: stretch; }
+.auth.wel .wel-title,
+.auth.wel .wel-note { align-self: stretch; }

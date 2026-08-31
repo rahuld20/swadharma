@@ -78,7 +78,7 @@ export default function Signup() {
         </div>
 
         {/* a new user arrives here straight after the code, so say what this is */}
-        <p className="auth-eyebrow dark">Step 3 of 3 · Create your account</p>
+        <p className="auth-eyebrow">Step 3 of 3 · Create your account</p>
         {auth.identifier && (
           <p className="auth-verified">
             <span aria-hidden="true">✓</span>{' '}
@@ -183,7 +183,7 @@ export default function Signup() {
           )}
         </div>
 
-        <p className="auth-terms dark">
+        <p className="auth-terms">
           By continuing, you agree to our <a href="#/profile/faqs">Terms of Service</a>
         </p>
       </div>

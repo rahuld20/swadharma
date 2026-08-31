@@ -13,7 +13,7 @@ const SLIDES = [
     title: 'Experience Bhakti\nwith 100+ Temples',
     art: '/img/onboard_temples.png',
     alt: 'Kedarnath Temple with Pooja and Chadhava offerings',
-    note: 'Book pujas and chadhava at verified partner temples across Bharat, performed by trusted pandits.',
+    note: 'Bring peace, prosperity, and joy to your family with online pujas at India’s holy temples, all from the comfort of your home.',
   },
   {
     id: 'astro',
