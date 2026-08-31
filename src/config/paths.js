@@ -7,6 +7,10 @@
 export const paths = {
   home: 'home',
 
+  login: 'login',
+  verify: 'verify',
+  signup: 'signup',
+
   puja: 'puja',
   pujas: 'pujas',
   chadhava: 'chadhava',

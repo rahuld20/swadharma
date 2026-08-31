@@ -29,6 +29,17 @@ export default function Success() {
         Your sankalp has been registered. You will receive the puja video and prasad tracking on WhatsApp.
       </p>
 
+      {/* Never let a simulated payment look like a real one. */}
+      {o.mocked && (
+        <p className="sx-demo">
+          Demo payment — no gateway is connected, so no money was taken.
+          Set <code>VITE_RAZORPAY_KEY_ID</code> and <code>VITE_API_URL</code> to take real payments.
+        </p>
+      )}
+      {o.paymentId && !o.mocked && (
+        <p className="sx-payid">Payment ID <b>{o.paymentId}</b></p>
+      )}
+
       <div className="sx-card">
         <div className="sx-ref">
           <span>Booking reference</span>

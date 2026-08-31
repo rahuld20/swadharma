@@ -1,0 +1,46 @@
+/* "Login required" bottom sheet — shown when a signed-out user tries to book. */
+.lsheet {
+  position: fixed; inset: 0; z-index: 320;
+  display: flex; align-items: flex-end; justify-content: center;
+  background: rgba(31, 21, 18, 0.5);
+  animation: lsheet-fade 0.18s ease;
+}
+@keyframes lsheet-fade { from { opacity: 0 } to { opacity: 1 } }
+
+.lsheet-panel {
+  position: relative;
+  width: 100%; max-width: 440px;
+  padding: 30px 26px calc(30px + env(safe-area-inset-bottom, 0px));
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+  background: var(--bg);
+  text-align: center;
+  animation: lsheet-rise 0.24s cubic-bezier(.2,.8,.3,1);
+}
+@keyframes lsheet-rise { from { transform: translateY(100%) } to { transform: none } }
+
+.lsheet-x {
+  position: absolute; top: 14px; right: 14px;
+  width: 34px; height: 34px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--bg-alt);
+  color: var(--ink-soft); font-size: 15px;
+}
+.lsheet-logo { margin: 0 auto 14px; }
+.lsheet-panel h2 { font-size: 21px; font-weight: 800; letter-spacing: -0.01em; }
+.lsheet-panel p { margin-top: 8px; font-size: 14.5px; line-height: 1.6; color: var(--grey); }
+
+.lsheet-cta {
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+  width: 100%; margin-top: 22px; padding: 15px;
+  border-radius: var(--r-md);
+  background: var(--orange); color: #fff;
+  font-size: 15.5px; font-weight: 700;
+}
+.lsheet-cta:hover { background: var(--orange-deep); }
+.lsheet-later { width: 100%; margin-top: 10px; padding: 12px; font-size: 14.5px; font-weight: 600; color: var(--grey); }
+
+@media (min-width: 700px) {
+  .lsheet { align-items: center; }
+  .lsheet-panel { border-radius: var(--r-xl); padding-bottom: 30px; }
+}

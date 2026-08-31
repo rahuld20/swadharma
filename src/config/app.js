@@ -1,0 +1,31 @@
+/**
+ * Runtime configuration, read from Vite env vars at build time.
+ *
+ * Copy `.env.example` to `.env` and fill these in. Anything prefixed with
+ * `VITE_` is embedded in the bundle and is therefore PUBLIC — only ever put
+ * publishable keys here. Secret keys (Razorpay key_secret, SMS provider
+ * credentials) belong on the server and nowhere else.
+ */
+
+/** Base URL of the backend. Empty means "run the local mocks". */
+export const API_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
+
+/** True when no backend is configured, so the app runs on in-memory mocks. */
+export const IS_MOCK = !API_URL
+
+/** Razorpay publishable key id (`rzp_test_…` / `rzp_live_…`). Safe to ship. */
+export const RAZORPAY_KEY_ID = import.meta.env.VITE_RAZORPAY_KEY_ID || ''
+
+/** Whether a real gateway can be opened at all. */
+export const PAYMENTS_ENABLED = Boolean(RAZORPAY_KEY_ID)
+
+export const BRAND = {
+  name: 'SwaDharma',
+  legalName: 'SwaDharma Technologies Pvt. Ltd.',
+  logo: '/img/logo_mark.png',
+  themeColor: '#d04725',
+  supportEmail: 'support@swadharma.com',
+}
+
+/** First-recharge bonus shown in the welcome sheet, per the app. */
+export const FIRST_RECHARGE_BONUS = 50

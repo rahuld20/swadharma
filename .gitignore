@@ -1,1 +1,3 @@
 *.apk
+.env
+.env.local

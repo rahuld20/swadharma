@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { GST_RATE, RECHARGE_OFFERS, UPI_METHODS, WALLET_PACKS, offerFor } from '@/features/wallet/api'
+import { usePayment } from '@/features/payments/hooks/use-payment'
 import { Link, go, query } from '@/lib/router'
 import { useStore } from '@/stores/app-store'
 import '@/styles/pages.css'
@@ -107,6 +108,7 @@ export function AddMoney() {
    ============================================================ */
 export function RechargePayment() {
   const { notify } = useStore()
+  const { pay: startPayment, paying } = usePayment()
   const amount = Math.max(0, Number(query().get('amt')) || 500)
 
   const [method, setMethod] = useState('gpay')
@@ -178,8 +180,15 @@ export function RechargePayment() {
             <div className="grand"><dt>To Pay</dt><dd>₹{payable}</dd></div>
           </dl>
           {bonus > 0 && <p className="rc-credit">₹{amount + bonus} will be credited to your wallet</p>}
-          <button className="cta-wide" onClick={() => go(`wallet/success?amt=${amount}&bonus=${bonus}&paid=${payable}`)}>
-            Pay ₹{payable} <span className="arrow">→</span>
+          <button
+            className="cta-wide"
+            disabled={paying}
+            onClick={() => startPayment(
+              { amount: payable, name: `Wallet recharge ₹${amount}`, next: `wallet/payment?amt=${amount}` },
+              () => go(`wallet/success?amt=${amount}&bonus=${bonus}&paid=${payable}`),
+            )}
+          >
+            {paying ? 'Opening payment…' : <>Pay ₹{payable} <span className="arrow">→</span></>}
           </button>
           <p className="co-secure">🔒 Payments are processed securely</p>
         </aside>

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { CHECKOUT_ADDONS, getProduct } from '@/features/booking/api'
+import { usePayment } from '@/features/payments/hooks/use-payment'
 import { Link, go } from '@/lib/router'
 import { useStore } from '@/stores/app-store'
 import '@/styles/pages.css'
@@ -15,6 +16,7 @@ export default function Checkout() {
   const { cart, count, subtotal, address, setAddress, pay, setPay, placeOrder, notify, add } = useStore()
   const [editing, setEditing] = useState(false)
   const [draft, setDraft] = useState(address)
+  const { pay: startPayment, paying } = usePayment()
   const [coupon, setCoupon] = useState('')
   const [applied, setApplied] = useState(null)
 
@@ -47,11 +49,14 @@ export default function Checkout() {
     else notify('Invalid coupon code')
   }
 
-  const payNow = () => {
-    placeOrder({ sankalp, discount, total })
-    sessionStorage.removeItem('sd_sankalp')
-    go('success')
-  }
+  const payNow = () => startPayment(
+    { amount: total, name: `SwaDharma order (${count} ${count === 1 ? 'item' : 'items'})`, next: 'checkout' },
+    (res) => {
+      placeOrder({ sankalp, discount, total, paymentId: res.paymentId, mocked: res.mocked })
+      sessionStorage.removeItem('sd_sankalp')
+      go('success')
+    },
+  )
 
   return (
     <div className="flow-page">
@@ -213,8 +218,8 @@ export default function Checkout() {
               <p className="saved-line">You save ₹{saved.toLocaleString('en-IN')} on this order 🎉</p>
             )}
 
-            <button className="cta-wide" onClick={payNow}>
-              Pay Now ₹{total.toLocaleString('en-IN')} <span className="arrow">→</span>
+            <button className="cta-wide" onClick={payNow} disabled={paying}>
+              {paying ? 'Opening payment…' : <>Pay Now ₹{total.toLocaleString('en-IN')} <span className="arrow">→</span></>}
             </button>
             <p className="co-secure">🔒 Payments are processed securely</p>
           </aside>
@@ -223,7 +228,7 @@ export default function Checkout() {
 
       <div className="pd-bar">
         <div><small>To Pay</small><b>₹{total.toLocaleString('en-IN')}</b></div>
-        <button onClick={payNow}>Pay Now →</button>
+        <button onClick={payNow} disabled={paying}>{paying ? 'Opening…' : 'Pay Now →'}</button>
       </div>
     </div>
   )

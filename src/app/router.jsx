@@ -6,6 +6,9 @@ import { useRoute } from '@/lib/router'
  * pulls in lands in the bundle in the same order it did before.
  */
 import Home from './routes/home'
+import Login from './routes/auth/login'
+import Verify from './routes/auth/verify'
+import Signup from './routes/auth/signup'
 import Puja from './routes/puja'
 import PujaDetail from './routes/puja-detail'
 import Chadhava from './routes/chadhava'
@@ -46,6 +49,13 @@ export function AppRouter() {
   const { page, a, b } = useRoute()
 
   switch (page) {
+    case paths.login:
+      return <Login />
+    case paths.verify:
+      return <Verify />
+    case paths.signup:
+      return <Signup />
+
     case paths.puja:
     case paths.pujas:
       return a ? <PujaDetail slug={a} /> : <Puja />

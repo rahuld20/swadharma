@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { ACCOMMODATIONS, INSURANCE, PREP_STEPS, getPackage } from '@/features/teerth/api'
+import { usePayment } from '@/features/payments/hooks/use-payment'
 import { Link, go, query } from '@/lib/router'
 import { useStore } from '@/stores/app-store'
 import '@/styles/pages.css'
@@ -11,6 +12,7 @@ import '@/styles/pages.css'
 export function TeerthBooking({ slug }) {
   const p = getPackage(slug)
   const { balance, notify, bookYatra } = useStore()
+  const { pay: startPayment, paying } = usePayment()
 
   const [adults, setAdults] = useState(2)
   const [children, setChildren] = useState(0)
@@ -63,6 +65,9 @@ export function TeerthBooking({ slug }) {
 
   const confirm = () => {
     if (travellers < 1) { notify('Add at least one traveller'); return }
+    return startPayment(
+      { amount: total, name: `${p.name} — ${travellers} traveller${travellers > 1 ? 's' : ''}`, next: `teerth/book/${p.slug}` },
+      (res) => {
     const b = bookYatra({
       pkg: p.name,
       slug: p.slug,
@@ -78,8 +83,12 @@ export function TeerthBooking({ slug }) {
       discount,
       walletUsed,
       total,
+      paymentId: res.paymentId,
+      mocked: res.mocked,
     })
     go(`teerth/confirmation?ref=${b.ref}`)
+      },
+    )
   }
 
   return (

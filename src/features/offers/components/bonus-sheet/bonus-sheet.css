@@ -1,0 +1,73 @@
+/* Welcome offer sheet — the app's 50% first-recharge bonus. */
+.bsheet {
+  position: fixed; inset: 0; z-index: 330;
+  display: flex; align-items: flex-end; justify-content: center;
+  background: rgba(31, 21, 18, 0.55);
+  animation: bsheet-fade 0.2s ease;
+}
+@keyframes bsheet-fade { from { opacity: 0 } to { opacity: 1 } }
+
+.bsheet-panel {
+  position: relative;
+  width: 100%; max-width: 440px;
+  padding: 26px 24px calc(26px + env(safe-area-inset-bottom, 0px));
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+  background: var(--bg);
+  animation: bsheet-rise 0.28s cubic-bezier(.2,.8,.3,1);
+}
+@keyframes bsheet-rise { from { transform: translateY(100%) } to { transform: none } }
+
+.bsheet-x {
+  position: absolute; top: 16px; right: 16px;
+  width: 38px; height: 38px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--bg-alt);
+  color: var(--ink); font-size: 16px;
+}
+.bsheet-welcome { font-size: 21px; font-weight: 600; color: var(--ink); }
+.bsheet-logo { height: 34px; width: auto; margin-top: 10px; }
+
+.bsheet-card {
+  position: relative;
+  margin-top: 20px;
+  padding: 22px 22px 0;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--orange-wash), var(--orange-pale));
+  text-align: left;
+}
+.bsheet-kicker {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 7px;
+  background: #fff;
+  color: var(--orange-deep);
+  font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em;
+}
+.bsheet-card strong {
+  display: block; margin-top: 14px;
+  font-size: clamp(34px, 8vw, 46px); font-weight: 800; letter-spacing: -0.02em;
+  color: var(--orange);
+}
+.bsheet-card > p { margin-top: 2px; font-size: 15px; font-weight: 600; color: var(--ink); }
+.bsheet-diyas {
+  display: flex; justify-content: space-between; gap: 2px;
+  margin: 18px -22px 0; padding: 6px 10px;
+  background: var(--peach-btn);
+  font-size: 17px; line-height: 1;
+}
+
+.bsheet-cta {
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+  width: 100%; margin-top: 22px; padding: 16px;
+  border-radius: var(--r-md);
+  background: var(--orange); color: #fff;
+  font-size: 16px; font-weight: 700;
+}
+.bsheet-cta:hover { background: var(--orange-deep); }
+
+@media (min-width: 700px) {
+  .bsheet { align-items: center; }
+  .bsheet-panel { border-radius: var(--r-xl); padding-bottom: 26px; }
+}

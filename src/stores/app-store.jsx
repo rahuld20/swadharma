@@ -36,7 +36,12 @@ export function StoreProvider({ children }) {
 
   /* ---- profile ---- */
   const [user, setUser] = useState(USER)
-  const [loggedIn, setLoggedIn] = useState(true)
+  /* The app requires a login before booking or viewing personal details, so a
+     visitor starts signed out. Browsing stays open. */
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [auth, setAuth] = useState({ phone: '', demoCode: null })
+  /* Set when a signed-out user tries to book: holds where to send them back to. */
+  const [loginGate, setLoginGate] = useState(null)
   const [profiles, setProfiles] = useState([
     { id: 'me', name: USER.name, relation: 'Self', gender: 'Male', dob: '14 August 1994', gotra: 'Kashyap' },
   ])
@@ -59,7 +64,7 @@ export function StoreProvider({ children }) {
     return {
       cart, count, subtotal, favs, orders, address, pay, toast, lastOrder,
       balance, txns, lastSession, sessions, kundlis, yatras, wishlist,
-      user, loggedIn, profiles, payments, addresses, language, tickets, usedVouchers,
+      user, loggedIn, auth, loginGate, profiles, payments, addresses, language, tickets, usedVouchers,
       notify,
 
       /** Wallet top-up. */
@@ -94,8 +99,49 @@ export function StoreProvider({ children }) {
 
       setUser,
       setLanguage,
-      logout() { setLoggedIn(false); notify('Signed out') },
+      logout() {
+        setLoggedIn(false)
+        setAuth({ phone: '', demoCode: null })
+        notify('Signed out')
+      },
       login() { setLoggedIn(true); notify('Signed in') },
+
+      /** Phone submitted — an OTP is on its way. */
+      startLogin(phone, demoCode = null) {
+        setAuth({ phone: String(phone).replace(/\D/g, '').slice(-10), demoCode })
+      },
+
+      /** OTP verified (and signup finished, for a new user). */
+      finishLogin(profile) {
+        if (profile) {
+          setUser((u) => ({ ...u, ...profile }))
+          if (profile.name) {
+            setProfiles((list) => {
+              const me = list.find((x) => x.id === 'me')
+              if (!me) return list
+              return list.map((x) => (x.id === 'me'
+                ? { ...x, name: profile.name, gender: profile.gender || x.gender, dob: profile.dob || x.dob }
+                : x))
+            })
+          }
+        }
+        setLoggedIn(true)
+        setAuth((a) => ({ ...a, demoCode: null }))
+        setLoginGate(null)
+      },
+
+      /**
+       * Gate an action behind login. Returns true when the caller may proceed;
+       * otherwise it opens the login sheet and returns false.
+       *
+       *   if (!requireAuth('checkout')) return
+       */
+      requireAuth(next = '') {
+        if (loggedIn) return true
+        setLoginGate({ next })
+        return false
+      },
+      closeLoginGate() { setLoginGate(null) },
 
       saveProfile(pf) {
         setProfiles((list) => {
@@ -245,7 +291,7 @@ export function StoreProvider({ children }) {
       },
     }
   }, [cart, favs, orders, address, pay, toast, lastOrder, balance, txns, lastSession, sessions, kundlis, yatras, wishlist,
-    user, loggedIn, profiles, payments, addresses, language, tickets, usedVouchers])
+    user, loggedIn, auth, loginGate, profiles, payments, addresses, language, tickets, usedVouchers])
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }

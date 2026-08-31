@@ -3,6 +3,7 @@ import {
   CHADHAVAS, FLOW_STEPS, PUJAS, PUJA_MODES, STEP_LABEL,
   getChadhava, getPuja, getTemple, isSpecialChadhava, isSpecialPuja, nextChadhavaCutoff,
 } from '@/features/booking/api'
+import { usePayment } from '@/features/payments/hooks/use-payment'
 import { Link, go, query } from '@/lib/router'
 import { useStore } from '@/stores/app-store'
 import Countdown from '@/components/ui/countdown'
@@ -19,6 +20,7 @@ const OFFERINGS = [
 
 export default function BookFlow({ kind, slug }) {
   const { address, setAddress, placeOrder, notify } = useStore()
+  const { pay: startPayment, paying } = usePayment()
 
   const item = kind === 'puja' ? getPuja(slug) : getChadhava(slug)
   const special = item ? (kind === 'puja' ? isSpecialPuja(item) : isSpecialChadhava(item)) : false
@@ -107,7 +109,9 @@ export default function BookFlow({ kind, slug }) {
     window.scrollTo(0, 0)
   }
 
-  const confirm = () => {
+  const confirm = () => startPayment(
+    { amount: total, name: `${item.name} at ${temple.name}`, next: `book/${kind}/${slug}` },
+    (res) => {
     const items = [{
       id: item.slug,
       kind,
@@ -134,9 +138,12 @@ export default function BookFlow({ kind, slug }) {
         mode: kind === 'puja' && special ? mode.name : special ? offering.name : 'Standard',
         devotees: devotees.slice(0, capacity),
       },
+      paymentId: res.paymentId,
+      mocked: res.mocked,
     })
     go('success')
-  }
+    },
+  )
 
   return (
     <div className="flow-page">
@@ -440,8 +447,8 @@ export default function BookFlow({ kind, slug }) {
 
             <div className="flow-nav">
               {stepIx > 0 && <button className="bf-back" onClick={() => setStepIx(stepIx - 1)}>Back</button>}
-              <button className="cta-wide" onClick={next} disabled={!canAdvance()}>
-                {isLast ? `Pay ₹${total.toLocaleString('en-IN')}` : step === 'addons' && addons.length === 0 ? 'Skip' : 'Continue'}
+              <button className="cta-wide" onClick={next} disabled={!canAdvance() || paying}>
+                {paying ? 'Opening payment…' : isLast ? `Pay ₹${total.toLocaleString('en-IN')}` : step === 'addons' && addons.length === 0 ? 'Skip' : 'Continue'}
                 <span className="arrow">→</span>
               </button>
             </div>
@@ -451,8 +458,8 @@ export default function BookFlow({ kind, slug }) {
 
       <div className="pd-bar">
         <div><small>To Pay</small><b>₹{total.toLocaleString('en-IN')}</b></div>
-        <button onClick={next} disabled={!canAdvance()}>
-          {isLast ? 'Pay Now' : 'Continue'} →
+        <button onClick={next} disabled={!canAdvance() || paying}>
+          {paying ? 'Opening…' : isLast ? 'Pay Now' : 'Continue'} →
         </button>
       </div>
     </div>
