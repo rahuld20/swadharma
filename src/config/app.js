@@ -29,3 +29,16 @@ export const BRAND = {
 
 /** First-recharge bonus shown in the welcome sheet, per the app. */
 export const FIRST_RECHARGE_BONUS = 50
+
+/**
+ * Start a visitor signed in.
+ *
+ * With no backend there are no real sessions — a reload would sign you out
+ * anyway — so the site demos as a signed-in user and the profile, wallet and
+ * orders are all reachable. The login and signup flows still work in full:
+ * log out and they run exactly as they will in production.
+ *
+ * Once VITE_API_URL points at a server this flips to false on its own and the
+ * server's session governs, so nothing needs changing at go-live.
+ */
+export const DEMO_SIGNED_IN = IS_MOCK

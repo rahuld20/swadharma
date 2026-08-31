@@ -1,4 +1,5 @@
 import { createContext, useContext, useMemo, useState } from 'react'
+import { DEMO_SIGNED_IN } from '@/config/app'
 import {
   DEFAULT_ADDRESSES, DEFAULT_PAYMENTS, USER,
 } from '@/lib/data/profile'
@@ -36,9 +37,11 @@ export function StoreProvider({ children }) {
 
   /* ---- profile ---- */
   const [user, setUser] = useState(USER)
-  /* The app requires a login before booking or viewing personal details, so a
-     visitor starts signed out. Browsing stays open. */
-  const [loggedIn, setLoggedIn] = useState(false)
+  /* The app requires a login before booking or viewing personal details. With
+     a real backend that is where a visitor starts; without one there are no
+     sessions to restore, so the site demos signed in and the flows are still
+     reachable via Log out. See DEMO_SIGNED_IN. */
+  const [loggedIn, setLoggedIn] = useState(DEMO_SIGNED_IN)
   /* identifier is a mobile number or an email address; channel says which,
      so the verify screen can label it correctly. */
   /* `mode` says which flow is in flight — the app has separate login and
