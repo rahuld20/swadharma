@@ -41,7 +41,12 @@ export function StoreProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(false)
   /* identifier is a mobile number or an email address; channel says which,
      so the verify screen can label it correctly. */
-  const [auth, setAuth] = useState({ identifier: '', channel: 'phone', demoCode: null })
+  /* `mode` says which flow is in flight — the app has separate login and
+     signup endpoints, so the code screen has to know which to verify against.
+     `draft` carries the profile a signup collected before verifying. */
+  const [auth, setAuth] = useState({
+    identifier: '', channel: 'phone', mode: 'login', demoCode: null, draft: null,
+  })
   /* Set when a signed-out user tries to book: holds where to send them back to. */
   const [loginGate, setLoginGate] = useState(null)
   const [profiles, setProfiles] = useState([
@@ -103,7 +108,7 @@ export function StoreProvider({ children }) {
       setLanguage,
       logout() {
         setLoggedIn(false)
-        setAuth({ identifier: '', channel: 'phone', demoCode: null })
+        setAuth({ identifier: '', channel: 'phone', mode: 'login', demoCode: null, draft: null })
         notify('Logged out')
       },
 
@@ -117,7 +122,15 @@ export function StoreProvider({ children }) {
         const value = channel === 'email'
           ? String(identifier).trim()
           : String(identifier).replace(/\D/g, '').slice(-10)
-        setAuth({ identifier: value, channel, demoCode })
+        setAuth({ identifier: value, channel, mode: 'login', demoCode, draft: null })
+      },
+
+      /** Signup collected a profile and sent a code; verification finishes it. */
+      startSignup(draft, channel = 'phone', demoCode = null) {
+        const value = channel === 'email'
+          ? String(draft.identifier).trim()
+          : String(draft.identifier).replace(/\D/g, '').slice(-10)
+        setAuth({ identifier: value, channel, mode: 'signup', demoCode, draft })
       },
 
       /** OTP verified (and signup finished, for a new user). */
@@ -135,7 +148,7 @@ export function StoreProvider({ children }) {
           }
         }
         setLoggedIn(true)
-        setAuth((a) => ({ ...a, demoCode: null }))
+        setAuth((a) => ({ ...a, demoCode: null, draft: null }))
         setLoginGate(null)
       },
 

@@ -30,9 +30,10 @@ cards / UPI id `success@razorpay` to complete a payment.
 | `POST /payments/order` | Creates a Razorpay order. Amount in paise. |
 | `POST /payments/verify` | Verifies the HMAC signature. This is what proves payment. |
 | `POST /payments/webhook` | Razorpay's retried callback — fulfil orders here. |
-| `POST /auth/otp/send` | Generates and SMSes a code. |
-| `POST /auth/otp/verify` | Checks the code, returns `isNewUser`. |
-| `POST /auth/signup` | Persists the profile, issues a session. |
+| `POST /auth/login/initiate` | Code for an existing account. 404 if unknown. |
+| `POST /auth/login/verify` | Checks the code, issues a session. |
+| `POST /auth/signup/initiate` | Code for a new account. 409 if it already exists. |
+| `POST /auth/signup/verify` | Creates the account, issues a session. |
 
 ## Before going live
 

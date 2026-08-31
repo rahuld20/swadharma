@@ -13,3 +13,8 @@ export function startAuthAt(next = '') {
   const base = seen ? 'login' : 'welcome'
   return next ? `${base}?next=${encodeURIComponent(next)}` : base
 }
+
+/** Straight to signup, keeping the return path. */
+export function signupAt(next = '') {
+  return next ? `signup?next=${encodeURIComponent(next)}` : 'signup'
+}

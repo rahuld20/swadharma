@@ -1,29 +1,33 @@
 import { useEffect, useRef, useState } from 'react'
-import { OTP_TTL, sendOtp, verifyOtp } from '@/features/auth/api'
+import {
+  OTP_LENGTH, OTP_TTL, loginInitiate, loginVerify, signupInitiate, signupVerify,
+} from '@/features/auth/api'
 import { Link, go, query } from '@/lib/router'
 import { useStore } from '@/stores/app-store'
 import '@/styles/auth.css'
 
 /**
- * Step 2 of 3 — "Enter 4 digit verification code".
+ * "Enter 6 digit verification code" — shared by both flows.
  *
- * Works for either channel: the identifier is shown as the user typed it,
- * with the +91 prefix only where it belongs.
+ * `auth.mode` decides which pair of endpoints to use, which is why the button
+ * reads "Verify" when logging in and "Verify & Save Account" when signing up,
+ * exactly as the app does.
  */
 export default function Verify() {
-  const { auth, startLogin, finishLogin, notify } = useStore()
-  const [digits, setDigits] = useState(['', '', '', ''])
+  const { auth, startLogin, startSignup, finishLogin, notify } = useStore()
+  const [digits, setDigits] = useState(Array(OTP_LENGTH).fill(''))
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
   const [left, setLeft] = useState(OTP_TTL)
   const boxes = useRef([])
   const next = query().get('next') || ''
 
+  const isSignup = auth.mode === 'signup'
   const isEmail = auth.channel === 'email'
   const shown = isEmail ? auth.identifier : `+91 ${auth.identifier}`
+  const backTo = isSignup ? 'signup' : 'login'
 
-  // landed here directly, with nothing in flight
-  useEffect(() => { if (!auth.identifier) go('login') }, [auth.identifier])
+  useEffect(() => { if (!auth.identifier) go(backTo) }, [auth.identifier, backTo])
 
   useEffect(() => {
     if (left <= 0) return
@@ -39,40 +43,37 @@ export default function Verify() {
     const d = v.replace(/\D/g, '').slice(-1)
     setDigits((cur) => { const n = [...cur]; n[i] = d; return n })
     setError('')
-    if (d && i < 3) boxes.current[i + 1]?.focus()
+    if (d && i < OTP_LENGTH - 1) boxes.current[i + 1]?.focus()
   }
 
   function onKeyDown(i, e) {
     if (e.key === 'Backspace' && !digits[i] && i > 0) boxes.current[i - 1]?.focus()
     if (e.key === 'ArrowLeft' && i > 0) boxes.current[i - 1]?.focus()
-    if (e.key === 'ArrowRight' && i < 3) boxes.current[i + 1]?.focus()
+    if (e.key === 'ArrowRight' && i < OTP_LENGTH - 1) boxes.current[i + 1]?.focus()
   }
 
   function onPaste(e) {
-    const t = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 4)
+    const t = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, OTP_LENGTH)
     if (!t) return
     e.preventDefault()
-    setDigits([0, 1, 2, 3].map((i) => t[i] || ''))
-    boxes.current[Math.min(t.length, 3)]?.focus()
+    setDigits(Array.from({ length: OTP_LENGTH }, (_, i) => t[i] || ''))
+    boxes.current[Math.min(t.length, OTP_LENGTH - 1)]?.focus()
   }
 
   async function submit(e) {
     e?.preventDefault()
-    if (code.length !== 4 || busy) return
+    if (code.length !== OTP_LENGTH || busy) return
     setBusy(true)
     try {
-      const r = await verifyOtp(auth.identifier, code)
-      if (r.isNewUser) {
-        // no account yet — continue into signup
-        go(`signup${next ? `?next=${encodeURIComponent(next)}` : ''}`)
-      } else {
-        finishLogin(r.user)
-        notify('Welcome back')
-        go(next || 'profile')
-      }
+      const r = isSignup
+        ? await signupVerify(auth.draft, code)
+        : await loginVerify(auth.identifier, code)
+      finishLogin(r.user)
+      notify(isSignup ? `Welcome, ${auth.draft?.firstName || ''}`.trim() : 'Welcome back')
+      go(next || (isSignup ? '' : 'profile'))
     } catch (err) {
       setError(err.message)
-      setDigits(['', '', '', ''])
+      setDigits(Array(OTP_LENGTH).fill(''))
       boxes.current[0]?.focus()
     } finally {
       setBusy(false)
@@ -81,10 +82,17 @@ export default function Verify() {
 
   async function resend() {
     if (left > 0) return
-    const r = await sendOtp(auth.identifier)
-    startLogin(auth.identifier, auth.channel, r.demoCode || null)
-    setLeft(OTP_TTL)
-    setError('')
+    try {
+      const r = isSignup
+        ? await signupInitiate(auth.draft)
+        : await loginInitiate(auth.identifier)
+      if (isSignup) startSignup(auth.draft, auth.channel, r.demoCode || null)
+      else startLogin(auth.identifier, auth.channel, r.demoCode || null)
+      setLeft(OTP_TTL)
+      setError('')
+    } catch (err) {
+      setError(err.message)
+    }
   }
 
   return (
@@ -92,14 +100,11 @@ export default function Verify() {
       <div className="auth-inner">
         <img className="auth-logo" src="/img/logo_lockup.png" alt="SwaDharma" />
 
-        <p className="auth-eyebrow">Step 2 of 3 · Verify</p>
-        <h1>Enter 4 digit<br />verification code</h1>
+        <p className="auth-eyebrow">{isSignup ? 'Sign up · Final step' : 'Log in · Step 2 of 2'}</p>
+        <h1>Enter {OTP_LENGTH} digit<br />verification code</h1>
         <p className="auth-sub">
           Sent to {shown}{' '}
-          <Link
-            className="auth-edit"
-            to={`login${next ? `?next=${encodeURIComponent(next)}` : ''}`}
-          >
+          <Link className="auth-edit" to={`${backTo}${next ? `?next=${encodeURIComponent(next)}` : ''}`}>
             Change
           </Link>
         </p>
@@ -138,8 +143,10 @@ export default function Verify() {
             {left > 0 && <span className="auth-timer">{String(left).padStart(2, '0')}s</span>}
           </p>
 
-          <button className="auth-cta" type="submit" disabled={code.length !== 4 || busy}>
-            {busy ? 'Verifying…' : <>Verify <span aria-hidden="true">→</span></>}
+          <button className="auth-cta" type="submit" disabled={code.length !== OTP_LENGTH || busy}>
+            {busy
+              ? 'Verifying…'
+              : <>{isSignup ? 'Verify & Save Account' : 'Verify'} <span aria-hidden="true">→</span></>}
           </button>
         </form>
       </div>

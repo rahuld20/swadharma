@@ -96,19 +96,27 @@ app.post('/payments/webhook', express.raw({ type: 'application/json' }), (req, r
  * ------------------------------------------------------------------ */
 
 /*
- * The website calls these three. Wire them to an SMS provider (MSG91, Twilio,
- * Gupshup) and your user table. Never return the code in the response.
+ * Wire these to an SMS/email provider (MSG91, Twilio, Gupshup) and your user
+ * table. Never return the code in the response.
  *
  * Store codes hashed, with a short TTL and an attempt counter, and rate-limit
  * by phone AND by IP — an unthrottled OTP endpoint is an SMS-bill attack.
  */
 const otps = new Map()   // demo only; use Redis or your database
 
-app.post('/auth/otp/send', async (req, res) => {
+/*
+ * The app calls four auth endpoints, not two — login and signup are separate:
+ *   /auth/login/initiate   /auth/login/verify
+ *   /auth/signup/initiate  /auth/signup/verify
+ * Logging in only needs an identifier; signing up carries the whole profile
+ * and creates the account once the code checks out.
+ */
+app.post(['/auth/login/initiate', '/auth/signup/initiate'], async (req, res) => {
   const phone = String(req.body?.phone || '').replace(/\D/g, '').slice(-10)
   if (!/^[6-9]\d{9}$/.test(phone)) return res.status(400).json({ message: 'Invalid mobile number' })
 
-  const code = String(Math.floor(1000 + Math.random() * 9000))
+  // the app expects six digits — its binary reads "Enter 6 digit verification code"
+  const code = String(Math.floor(100000 + Math.random() * 900000))
   otps.set(phone, { hash: crypto.createHash('sha256').update(code).digest('hex'), exp: Date.now() + 5 * 60_000, tries: 0 })
 
   // await sms.send(phone, `${code} is your SwaDharma verification code.`)
@@ -117,7 +125,7 @@ app.post('/auth/otp/send', async (req, res) => {
   res.json({ ok: true, ttl: 30 })
 })
 
-app.post('/auth/otp/verify', (req, res) => {
+app.post(['/auth/login/verify', '/auth/signup/verify'], (req, res) => {
   const phone = String(req.body?.phone || '').replace(/\D/g, '').slice(-10)
   const code = String(req.body?.code || '')
   const rec = otps.get(phone)
@@ -130,14 +138,17 @@ app.post('/auth/otp/verify', (req, res) => {
   if (hash !== rec.hash) return res.status(400).json({ message: 'Error! you have entered wrong code.' })
 
   otps.delete(phone)
-  // look the user up; isNewUser drives the signup wizard on the client
-  res.json({ ok: true, isNewUser: true, token: 'issue-a-real-jwt-here', user: null })
+  const signup = req.path.includes('/signup/')
+  res.json({ ok: true, token: 'issue-a-real-jwt-here', user: signup ? req.body : null })
 })
 
-app.post('/auth/signup', (req, res) => {
-  // persist the profile against the verified phone, then issue a session
-  res.json({ ok: true, token: 'issue-a-real-jwt-here', user: req.body })
-})
+/*
+ * On /auth/login/verify   -> look the account up and issue a session.
+ * On /auth/signup/verify  -> create it from the profile in the body first.
+ * Reject a login for an unknown identifier, and a signup for a known one:
+ * the website shows "No account found" / "An account already exists" and
+ * offers the other flow.
+ */
 
 app.get('/health', (_req, res) => res.json({ ok: true }))
 

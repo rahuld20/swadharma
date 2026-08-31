@@ -382,3 +382,21 @@
 .auth.wel .auth-actions { align-self: stretch; }
 .auth.wel .wel-title,
 .auth.wel .wel-note { align-self: stretch; }
+
+/* ---------- the app's cross-link between the two flows ---------- */
+.auth-swap {
+  margin-top: 22px;
+  text-align: center;
+  font-size: 14.5px;
+  color: var(--ink-soft);
+}
+.auth-swap a {
+  font-weight: 700;
+  color: var(--orange-deep);
+  text-decoration: underline;
+}
+.auth-inline { font-weight: 700; color: var(--orange-deep); text-decoration: underline; }
+
+/* six boxes need to be narrower than four */
+.auth-otp { grid-template-columns: repeat(6, 1fr); gap: 8px; max-width: none; }
+.auth-otp input { font-size: 20px; }

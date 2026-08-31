@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { isValidEmail, isValidPhone, sendOtp } from '@/features/auth/api'
-import { go, query } from '@/lib/router'
+import { isValidEmail, isValidPhone, loginInitiate } from '@/features/auth/api'
+import { Link, go, query } from '@/lib/router'
 import { useStore } from '@/stores/app-store'
 import '@/styles/auth.css'
 
@@ -15,6 +15,7 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
+  const [noAccount, setNoAccount] = useState(false)
   const next = query().get('next') || ''
 
   const value = mode === 'phone' ? phone : email
@@ -25,12 +26,14 @@ export default function Login() {
     if (!valid || busy) return
     setBusy(true)
     setError('')
+    setNoAccount(false)
     try {
-      const r = await sendOtp(value)
+      const r = await loginInitiate(value)
       startLogin(value, mode, r.demoCode || null)
       go(`verify${next ? `?next=${encodeURIComponent(next)}` : ''}`)
     } catch (err) {
       setError(err.message)
+      if (err.code === 'NO_ACCOUNT') setNoAccount(true)
     } finally {
       setBusy(false)
     }
@@ -46,7 +49,7 @@ export default function Login() {
       <div className="auth-inner">
         <img className="auth-logo" src="/img/logo_lockup.png" alt="SwaDharma" />
 
-        <p className="auth-eyebrow">Step 1 of 3 · Log in or sign up</p>
+        <p className="auth-eyebrow">Log in · Step 1 of 2</p>
         <h1>
           {mode === 'phone'
             ? <>Login with your<br />Phone number</>
@@ -54,10 +57,6 @@ export default function Login() {
         </h1>
         <p className="auth-sub">
           We&apos;ll send you a code. It helps keep your account secure.
-        </p>
-        <p className="auth-hint">
-          One place for both — if you already have an account you go straight in,
-          and if you are new we&apos;ll set one up after the code.
         </p>
 
         <form onSubmit={submit} noValidate>
@@ -92,7 +91,16 @@ export default function Login() {
               />
             </>
           )}
-          {error && <p className="auth-err">{error}</p>}
+          {error && (
+            <p className="auth-err">
+              {error}{' '}
+              {noAccount && (
+                <Link className="auth-inline" to={`signup${next ? `?next=${encodeURIComponent(next)}` : ''}`}>
+                  Sign up
+                </Link>
+              )}
+            </p>
+          )}
 
           <button className="auth-cta" type="submit" disabled={!valid || busy}>
             {busy ? 'Sending…' : <>Send code <span aria-hidden="true">→</span></>}
@@ -105,6 +113,11 @@ export default function Login() {
             <span aria-hidden="true">→</span>
           </button>
         </form>
+
+        <p className="auth-swap">
+          Don&apos;t have an account?{' '}
+          <Link to={`signup${next ? `?next=${encodeURIComponent(next)}` : ''}`}>Sign up</Link>
+        </p>
 
         <p className="auth-terms">
           By continuing, you agree to our <a href="#/profile/faqs">Terms of Service</a>

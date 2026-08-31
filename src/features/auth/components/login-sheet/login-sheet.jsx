@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { startAuthAt } from '@/features/auth/api/start'
+import { signupAt, startAuthAt } from '@/features/auth/api/start'
 import { go } from '@/lib/router'
 import { useStore } from '@/stores/app-store'
 import './login-sheet.css'
@@ -40,12 +40,15 @@ export default function LoginSheet() {
         <img className="lsheet-logo" src="/img/logo_mark.png" alt="" width="56" height="56" />
         <h2 id="lsheet-h">Log in to continue</h2>
         <p>
-          Sign in with your mobile number to book a puja, participate in a chadhava
-          or complete an order. It takes a few seconds.
+          Log in to book a puja, participate in a chadhava or complete an order.
+          It takes a few seconds.
         </p>
 
         <button className="lsheet-cta" onClick={proceed}>
-          Log in or sign up <span aria-hidden="true">→</span>
+          Log in <span aria-hidden="true">→</span>
+        </button>
+        <button className="lsheet-signup" onClick={() => { closeLoginGate(); go(signupAt(loginGate.next)) }}>
+          Don&apos;t have an account? <b>Sign up</b>
         </button>
         <button className="lsheet-later" onClick={closeLoginGate}>Not now</button>
       </div>

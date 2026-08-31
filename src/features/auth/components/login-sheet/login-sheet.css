@@ -44,3 +44,8 @@
   .lsheet { align-items: center; }
   .lsheet-panel { border-radius: var(--r-xl); padding-bottom: 30px; }
 }
+.lsheet-signup {
+  width: 100%; margin-top: 10px; padding: 12px;
+  font-size: 14.5px; color: var(--ink-soft);
+}
+.lsheet-signup b { color: var(--orange-deep); text-decoration: underline; }

@@ -1,26 +1,31 @@
 /**
  * Auth data access.
  *
- * Everything here goes through one seam so the mock can be swapped for a real
- * backend without touching a single screen. When `VITE_API_URL` is set these
- * call your server; otherwise they run a local mock so the flow is testable
- * with no backend.
+ * The shipped app keeps login and signup apart — its own binary carries four
+ * endpoints, not two:
  *
- * The real endpoints must be:
- *   POST {API}/auth/otp/send    { phone }        -> { ok, ttl }
- *   POST {API}/auth/otp/verify  { phone, code }  -> { ok, isNewUser, token, user }
- *   POST {API}/auth/signup      { ...profile }   -> { ok, token, user }
+ *   POST {API}/auth/login/initiate    { phone | email }        -> { ok, ttl }
+ *   POST {API}/auth/login/verify      { phone | email, code }  -> { ok, token, user }
+ *   POST {API}/auth/signup/initiate   { ...profile }           -> { ok, ttl }
+ *   POST {API}/auth/signup/verify     { ...profile, code }     -> { ok, token, user }
  *
- * OTP delivery has to happen server-side — an SMS provider's credentials can
- * never sit in browser code.
+ * Logging in asks only for an identifier. Signing up collects the profile
+ * first and verifies at the end — which is why the app's last signup button
+ * reads "Verify & Save Account".
+ *
+ * With no VITE_API_URL configured these run against a local mock so the whole
+ * flow is testable without a backend. OTP delivery has to be server-side; an
+ * SMS provider's credentials can never sit in browser code.
  */
 import { API_URL, IS_MOCK } from '@/config/app'
 
-const OTP_TTL = 30
+/** The app sends a 6-digit code — its binary reads "Enter 6 digit verification code". */
+export const OTP_LENGTH = 6
+export const OTP_TTL = 30
+
 const mock = {
   code: null,
-  phone: null,
-  knownUsers: new Set(),   // phones that have completed signup this session
+  accounts: new Set(),   // identifiers that have completed signup this session
 }
 
 const wait = (ms) => new Promise((r) => setTimeout(r, ms))
@@ -31,63 +36,96 @@ async function post(path, body) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   })
-  if (!res.ok) throw new Error((await res.json().catch(() => ({}))).message || 'Request failed')
-  return res.json()
+  const data = await res.json().catch(() => ({}))
+  if (!res.ok) throw new Error(data.message || 'Request failed')
+  return data
 }
 
-/** 10-digit Indian mobile, optionally already prefixed. */
+/* ---------------------------------------------------------------- *
+ * identifiers
+ * ---------------------------------------------------------------- */
 export const isValidPhone = (v) => /^[6-9]\d{9}$/.test(String(v).replace(/\D/g, '').slice(-10))
-
 export const normalisePhone = (v) => String(v).replace(/\D/g, '').slice(-10)
-
 export const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(v).trim())
 
-/**
- * Send a code. `id` is a mobile number or an email address — the app offers
- * both, and the verification screen is the same either way.
- */
-export async function sendOtp(id) {
-  const email = isValidEmail(id)
-  if (!email && !isValidPhone(id)) throw new Error('Enter a valid mobile number or email address')
-  const to = email ? String(id).trim() : normalisePhone(id)
-  if (!IS_MOCK) return post('/auth/otp/send', email ? { email: to } : { phone: to })
+/** Which channel an identifier belongs to. */
+export const channelOf = (v) => (isValidEmail(v) ? 'email' : 'phone')
+
+/** Normalised value plus the field name the API expects. */
+export function identify(v) {
+  const channel = channelOf(v)
+  const value = channel === 'email' ? String(v).trim() : normalisePhone(v)
+  return { channel, value, body: { [channel]: value } }
+}
+
+const newCode = () => String(Math.floor(10 ** (OTP_LENGTH - 1) + Math.random() * 9 * 10 ** (OTP_LENGTH - 1)))
+
+/* ---------------------------------------------------------------- *
+ * login — an existing account
+ * ---------------------------------------------------------------- */
+export async function loginInitiate(identifier) {
+  const { channel, value, body } = identify(identifier)
+  if (channel === 'phone' && !isValidPhone(value)) throw new Error('Enter a valid 10-digit mobile number')
+  if (channel === 'email' && !isValidEmail(value)) throw new Error('Enter a valid email address')
+  if (!IS_MOCK) return post('/auth/login/initiate', body)
 
   await wait(600)
-  mock.phone = to
-  mock.code = String(Math.floor(1000 + Math.random() * 9000))
-  // No SMS provider without a backend, so the code is returned for the demo
-  // banner. A real server never sends the code back to the client.
+  if (!mock.accounts.has(value)) {
+    const err = new Error('No account found with these details. Sign up instead?')
+    err.code = 'NO_ACCOUNT'
+    throw err
+  }
+  mock.code = newCode()
   return { ok: true, ttl: OTP_TTL, demoCode: mock.code }
 }
 
-export async function verifyOtp(id, code) {
-  if (!IS_MOCK) {
-    const email = isValidEmail(id)
-    return post('/auth/otp/verify', email ? { email: String(id).trim(), code } : { phone: normalisePhone(id), code })
-  }
+export async function loginVerify(identifier, code) {
+  const { value, body } = identify(identifier)
+  if (!IS_MOCK) return post('/auth/login/verify', { ...body, code })
 
   await wait(600)
-  if (code !== mock.code) {
-    const err = new Error('Error! you have entered wrong code.')
-    err.code = 'BAD_OTP'
-    throw err
-  }
-  const key = isValidEmail(id) ? String(id).trim() : normalisePhone(id)
-  return { ok: true, isNewUser: !mock.knownUsers.has(key), token: 'mock-token', user: null }
+  if (code !== mock.code) throw wrongCode()
+  return { ok: true, token: 'mock-token', user: { phone: value } }
 }
 
-export async function completeSignup(profile) {
-  if (!IS_MOCK) return post('/auth/signup', profile)
+/* ---------------------------------------------------------------- *
+ * signup — profile first, verified at the end
+ * ---------------------------------------------------------------- */
+export async function signupInitiate(profile) {
+  const { channel, value, body } = identify(profile.identifier)
+  if (channel === 'phone' && !isValidPhone(value)) throw new Error('Enter a valid 10-digit mobile number')
+  if (channel === 'email' && !isValidEmail(value)) throw new Error('Enter a valid email address')
+  if (!IS_MOCK) return post('/auth/signup/initiate', { ...profile, ...body })
 
-  await wait(500)
-  const key = profile.email || (profile.phone && normalisePhone(profile.phone))
-  if (key) mock.knownUsers.add(key)
+  await wait(600)
+  if (mock.accounts.has(value)) {
+    const err = new Error('An account already exists with these details. Log in instead?')
+    err.code = 'ACCOUNT_EXISTS'
+    throw err
+  }
+  mock.code = newCode()
+  return { ok: true, ttl: OTP_TTL, demoCode: mock.code }
+}
+
+export async function signupVerify(profile, code) {
+  const { value, body } = identify(profile.identifier)
+  if (!IS_MOCK) return post('/auth/signup/verify', { ...profile, ...body, code })
+
+  await wait(600)
+  if (code !== mock.code) throw wrongCode()
+  mock.accounts.add(value)
   return { ok: true, token: 'mock-token', user: profile }
 }
 
-export { OTP_TTL }
+function wrongCode() {
+  const err = new Error('Error! you have entered wrong code.')
+  err.code = 'BAD_OTP'
+  return err
+}
 
-/** Cities offered on the birth-place step, mirroring the app's list. */
+/* ---------------------------------------------------------------- *
+ * reference data
+ * ---------------------------------------------------------------- */
 export const BIRTH_CITIES = [
   'New Delhi', 'Mumbai', 'Bengaluru', 'Chennai', 'Kolkata', 'Hyderabad',
   'Ahmedabad', 'Pune', 'Jaipur', 'Lucknow', 'Visakhapatnam', 'Varanasi',
