@@ -1,4 +1,6 @@
+import { startAuthAt } from '@/features/auth/api/start'
 import { Link, useRoute } from '@/lib/router'
+import { useStore } from '@/stores/app-store'
 import './bottom-nav.css'
 
 /**
@@ -13,6 +15,9 @@ const TABS = [
   { id: 'astro', to: 'astro', label: 'Astro', match: ['astro', 'astrologers', 'astrologer', 'chat', 'call', 'sessions', 'kundli', 'horoscope', 'panchang'], icon: AstroIcon },
   { id: 'teerth', to: 'teerth', label: 'Teerth', match: ['teerth'], icon: PlaneIcon },
   { id: 'store', to: 'store', label: 'Store', match: ['store', 'cart', 'checkout', 'orders'], icon: BagIcon },
+  /* The app reaches the profile from its header instead, so this sixth tab is
+     a deliberate addition — on the web the account is worth a permanent slot. */
+  { id: 'profile', to: 'profile', label: 'Profile', match: ['profile', 'wallet'], icon: PersonIcon, auth: true },
 ]
 
 /* Screens that take over the whole device, as they do in the app: a live
@@ -21,6 +26,7 @@ const IMMERSIVE = ['chat', 'call', 'book', 'checkout', 'session-complete']
 
 export default function BottomNav() {
   const { page } = useRoute()
+  const { loggedIn } = useStore()
 
   if (IMMERSIVE.includes(page)) return null
 
@@ -33,10 +39,10 @@ export default function BottomNav() {
           return (
             <li key={t.id}>
               <Link
-                to={t.to}
+                to={t.auth && !loggedIn ? startAuthAt(t.to) : t.to}
                 className={`bnav-tab${on ? ' on' : ''}${t.brand ? ' brand' : ''}`}
                 aria-current={on ? 'page' : undefined}
-                aria-label={t.label}
+                aria-label={t.auth && !loggedIn ? 'Log in' : t.label}
               >
                 <span className="bnav-ic"><Icon /></span>
               </Link>
@@ -83,6 +89,15 @@ function PlaneIcon() {
         d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 18.5V13.5L21 16Z"
         fill="currentColor"
       />
+    </svg>
+  )
+}
+
+function PersonIcon() {
+  return (
+    <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="8" r="3.6" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M4.8 20.4c0-3.6 3.2-5.8 7.2-5.8s7.2 2.2 7.2 5.8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
     </svg>
   )
 }
