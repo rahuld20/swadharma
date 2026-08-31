@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { startAuthAt } from '@/features/auth/api/start'
 import { go } from '@/lib/router'
 import { useStore } from '@/stores/app-store'
 import './login-sheet.css'
@@ -28,7 +29,7 @@ export default function LoginSheet() {
   const proceed = () => {
     const next = loginGate.next || ''
     closeLoginGate()
-    go(`login${next ? `?next=${encodeURIComponent(next)}` : ''}`)
+    go(startAuthAt(next))
   }
 
   return (

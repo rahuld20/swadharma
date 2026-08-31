@@ -104,7 +104,6 @@ export function StoreProvider({ children }) {
         setAuth({ phone: '', demoCode: null })
         notify('Signed out')
       },
-      login() { setLoggedIn(true); notify('Signed in') },
 
       /** Phone submitted — an OTP is on its way. */
       startLogin(phone, demoCode = null) {

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { LANGUAGES, PROFILE_FAQS } from '@/features/profile/api'
+import { startAuthAt } from '@/features/auth/api/start'
 import { Link, go } from '@/lib/router'
 import { useStore } from '@/stores/app-store'
 import '@/styles/pages.css'
@@ -10,7 +11,7 @@ import '@/styles/pages.css'
 export default function Profile() {
   const {
     user, balance, orders, yatras, wishlist, language,
-    profiles, payments, addresses, loggedIn, logout, login,
+    profiles, payments, addresses, loggedIn, logout,
   } = useStore()
 
   const lang = LANGUAGES.find((l) => l.id === language) || LANGUAGES[0]
@@ -21,8 +22,12 @@ export default function Profile() {
       <div className="wrap empty-page">
         <h1>You are signed out</h1>
         <p className="cart-empty">Sign in to see your profile, orders and wallet.</p>
-        <button className="cta-wide" style={{ maxWidth: 320, marginInline: 'auto' }} onClick={login}>
-          Sign in <span className="arrow">→</span>
+        <button
+          className="cta-wide"
+          style={{ maxWidth: 320, marginInline: 'auto' }}
+          onClick={() => go(startAuthAt('profile'))}
+        >
+          Login / Sign up <span className="arrow">→</span>
         </button>
       </div>
     )

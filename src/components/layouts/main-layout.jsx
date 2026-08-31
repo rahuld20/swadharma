@@ -7,7 +7,7 @@ import { BonusSheet } from '@/features/offers/components'
 import { useRoute } from '@/lib/router'
 
 /** Onboarding takes the whole screen in the app — no header, footer or tabs. */
-const BARE = ['login', 'verify', 'signup']
+const BARE = ['welcome', 'login', 'verify', 'signup']
 
 /**
  * Chrome shared by every route: header, page slot, footer, toast host, the

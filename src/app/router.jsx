@@ -6,6 +6,7 @@ import { useRoute } from '@/lib/router'
  * pulls in lands in the bundle in the same order it did before.
  */
 import Home from './routes/home'
+import Welcome from './routes/auth/welcome'
 import Login from './routes/auth/login'
 import Verify from './routes/auth/verify'
 import Signup from './routes/auth/signup'
@@ -49,6 +50,8 @@ export function AppRouter() {
   const { page, a, b } = useRoute()
 
   switch (page) {
+    case paths.welcome:
+      return <Welcome />
     case paths.login:
       return <Login />
     case paths.verify:

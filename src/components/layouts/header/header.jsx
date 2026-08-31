@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from '@/lib/router'
+import { startAuthAt } from '@/features/auth/api/start'
 import { useStore } from '@/stores/app-store'
 import './header.css'
 
@@ -18,7 +19,7 @@ export default function Header() {
   const [open, setOpen] = useState(false)
   const [stuck, setStuck] = useState(false)
   const [search, setSearch] = useState(false)
-  const { count, wishlist } = useStore()
+  const { count, wishlist, loggedIn } = useStore()
 
   useEffect(() => {
     const onScroll = () => setStuck(window.scrollY > 8)
@@ -68,9 +69,9 @@ export default function Header() {
               </span>
               <span>Cart</span>
             </Link>
-            <Link className="hdr-login" to="profile">
+            <Link className="hdr-login" to={loggedIn ? 'profile' : startAuthAt('profile')}>
               <UserIcon />
-              Profile
+              {loggedIn ? 'Profile' : 'Login'}
             </Link>
           </div>
 
@@ -145,8 +146,12 @@ export default function Header() {
               </li>
             ))}
           </ul>
-          <Link className="hdr-drawer-login" to="profile" onClick={() => setOpen(false)}>
-            <UserIcon /> My Profile
+          <Link
+            className="hdr-drawer-login"
+            to={loggedIn ? 'profile' : startAuthAt('profile')}
+            onClick={() => setOpen(false)}
+          >
+            <UserIcon /> {loggedIn ? 'My Profile' : 'Login / Sign up'}
           </Link>
         </div>
       </div>

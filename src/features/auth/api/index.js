@@ -40,20 +40,31 @@ export const isValidPhone = (v) => /^[6-9]\d{9}$/.test(String(v).replace(/\D/g, 
 
 export const normalisePhone = (v) => String(v).replace(/\D/g, '').slice(-10)
 
-export async function sendOtp(phone) {
-  if (!isValidPhone(phone)) throw new Error('Enter a valid 10-digit mobile number')
-  if (!IS_MOCK) return post('/auth/otp/send', { phone: normalisePhone(phone) })
+export const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(v).trim())
+
+/**
+ * Send a code. `id` is a mobile number or an email address — the app offers
+ * both, and the verification screen is the same either way.
+ */
+export async function sendOtp(id) {
+  const email = isValidEmail(id)
+  if (!email && !isValidPhone(id)) throw new Error('Enter a valid mobile number or email address')
+  const to = email ? String(id).trim() : normalisePhone(id)
+  if (!IS_MOCK) return post('/auth/otp/send', email ? { email: to } : { phone: to })
 
   await wait(600)
-  mock.phone = normalisePhone(phone)
+  mock.phone = to
   mock.code = String(Math.floor(1000 + Math.random() * 9000))
   // No SMS provider without a backend, so the code is returned for the demo
   // banner. A real server never sends the code back to the client.
   return { ok: true, ttl: OTP_TTL, demoCode: mock.code }
 }
 
-export async function verifyOtp(phone, code) {
-  if (!IS_MOCK) return post('/auth/otp/verify', { phone: normalisePhone(phone), code })
+export async function verifyOtp(id, code) {
+  if (!IS_MOCK) {
+    const email = isValidEmail(id)
+    return post('/auth/otp/verify', email ? { email: String(id).trim(), code } : { phone: normalisePhone(id), code })
+  }
 
   await wait(600)
   if (code !== mock.code) {
@@ -61,15 +72,16 @@ export async function verifyOtp(phone, code) {
     err.code = 'BAD_OTP'
     throw err
   }
-  const p = normalisePhone(phone)
-  return { ok: true, isNewUser: !mock.knownUsers.has(p), token: 'mock-token', user: null }
+  const key = isValidEmail(id) ? String(id).trim() : normalisePhone(id)
+  return { ok: true, isNewUser: !mock.knownUsers.has(key), token: 'mock-token', user: null }
 }
 
 export async function completeSignup(profile) {
   if (!IS_MOCK) return post('/auth/signup', profile)
 
   await wait(500)
-  if (profile.phone) mock.knownUsers.add(normalisePhone(profile.phone))
+  const key = profile.email || (profile.phone && normalisePhone(profile.phone))
+  if (key) mock.knownUsers.add(key)
   return { ok: true, token: 'mock-token', user: profile }
 }
 

@@ -196,3 +196,47 @@
   .auth-otp input { width: 100%; height: 56px; }
   .auth-otp { gap: 10px; }
 }
+
+/* ---------- "Or / Log in with email" ---------- */
+.auth-or {
+  position: relative;
+  margin: 22px 0 16px;
+  text-align: center;
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.55);
+}
+.auth-or::before {
+  content: '';
+  position: absolute; left: 0; right: 0; top: 50%;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+.auth-or span { position: relative; padding: 0 14px; background: #17100e; }
+
+.auth-alt {
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+  width: 100%;
+  padding: 15px;
+  border-radius: var(--r-md);
+  background: var(--orange-pale);
+  color: var(--orange-deep);
+  font-size: 15px; font-weight: 700;
+  transition: background 0.15s ease;
+}
+.auth-alt:hover { background: var(--orange-soft); }
+.auth-field.err { border-color: #e5484d; }
+
+/* ---------- welcome / intro screens ---------- */
+.wel-kicker { margin-bottom: 8px; font-size: 14px; font-weight: 600; color: var(--orange-soft); }
+.wel-title { font-size: clamp(28px, 4vw, 36px); font-weight: 800; line-height: 1.18; letter-spacing: -0.02em; }
+.wel-title span { display: block; }
+.wel-art { width: 100%; max-width: 340px; height: auto; margin: 28px auto 0; }
+.wel-note { margin-top: 20px; font-size: 14.5px; line-height: 1.6; color: rgba(255, 255, 255, 0.7); }
+
+.wel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 24px; }
+.wel-dots button {
+  width: 7px; height: 7px;
+  border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, 0.3);
+  transition: 0.2s ease;
+}
+.wel-dots button.on { width: 26px; background: var(--orange); }
