@@ -39,7 +39,9 @@ export function StoreProvider({ children }) {
   /* The app requires a login before booking or viewing personal details, so a
      visitor starts signed out. Browsing stays open. */
   const [loggedIn, setLoggedIn] = useState(false)
-  const [auth, setAuth] = useState({ phone: '', demoCode: null })
+  /* identifier is a mobile number or an email address; channel says which,
+     so the verify screen can label it correctly. */
+  const [auth, setAuth] = useState({ identifier: '', channel: 'phone', demoCode: null })
   /* Set when a signed-out user tries to book: holds where to send them back to. */
   const [loginGate, setLoginGate] = useState(null)
   const [profiles, setProfiles] = useState([
@@ -101,13 +103,21 @@ export function StoreProvider({ children }) {
       setLanguage,
       logout() {
         setLoggedIn(false)
-        setAuth({ phone: '', demoCode: null })
-        notify('Signed out')
+        setAuth({ identifier: '', channel: 'phone', demoCode: null })
+        notify('Logged out')
       },
 
-      /** Phone submitted — an OTP is on its way. */
-      startLogin(phone, demoCode = null) {
-        setAuth({ phone: String(phone).replace(/\D/g, '').slice(-10), demoCode })
+      /**
+       * Identifier submitted — an OTP is on its way.
+       * Only a phone number may be reduced to digits; doing that to an email
+       * leaves an empty string, which used to bounce the user back to the
+       * start of the flow.
+       */
+      startLogin(identifier, channel = 'phone', demoCode = null) {
+        const value = channel === 'email'
+          ? String(identifier).trim()
+          : String(identifier).replace(/\D/g, '').slice(-10)
+        setAuth({ identifier: value, channel, demoCode })
       },
 
       /** OTP verified (and signup finished, for a new user). */

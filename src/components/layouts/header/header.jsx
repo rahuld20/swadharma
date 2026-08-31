@@ -71,7 +71,7 @@ export default function Header() {
             </Link>
             <Link className="hdr-login" to={loggedIn ? 'profile' : startAuthAt('profile')}>
               <UserIcon />
-              {loggedIn ? 'Profile' : 'Login'}
+              {loggedIn ? 'Profile' : 'Log in'}
             </Link>
           </div>
 
@@ -151,7 +151,7 @@ export default function Header() {
             to={loggedIn ? 'profile' : startAuthAt('profile')}
             onClick={() => setOpen(false)}
           >
-            <UserIcon /> {loggedIn ? 'My Profile' : 'Login / Sign up'}
+            <UserIcon /> {loggedIn ? 'My Profile' : 'Log in or sign up'}
           </Link>
         </div>
       </div>

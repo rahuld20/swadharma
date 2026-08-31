@@ -27,7 +27,7 @@ export default function Login() {
     setError('')
     try {
       const r = await sendOtp(value)
-      startLogin(value, r.demoCode || null)
+      startLogin(value, mode, r.demoCode || null)
       go(`verify${next ? `?next=${encodeURIComponent(next)}` : ''}`)
     } catch (err) {
       setError(err.message)
@@ -46,12 +46,19 @@ export default function Login() {
       <div className="auth-inner">
         <img className="auth-logo" src="/img/logo_lockup.png" alt="SwaDharma" />
 
+        <p className="auth-eyebrow">Step 1 of 3 · Log in or sign up</p>
         <h1>
           {mode === 'phone'
             ? <>Login with your<br />Phone number</>
             : <>Login with your<br />Email address</>}
         </h1>
-        <p className="auth-sub">We&apos;ll send you a code. It helps keep your account secure.</p>
+        <p className="auth-sub">
+          We&apos;ll send you a code. It helps keep your account secure.
+        </p>
+        <p className="auth-hint">
+          One place for both — if you already have an account you go straight in,
+          and if you are new we&apos;ll set one up after the code.
+        </p>
 
         <form onSubmit={submit} noValidate>
           {mode === 'phone' ? (

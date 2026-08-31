@@ -4,9 +4,14 @@ import { Link, go, query } from '@/lib/router'
 import { useStore } from '@/stores/app-store'
 import '@/styles/auth.css'
 
-/** "Enter 4 digit verification code" — four boxes, resend timer, error state. */
+/**
+ * Step 2 of 3 — "Enter 4 digit verification code".
+ *
+ * Works for either channel: the identifier is shown as the user typed it,
+ * with the +91 prefix only where it belongs.
+ */
 export default function Verify() {
-  const { auth, startLogin, finishLogin } = useStore()
+  const { auth, startLogin, finishLogin, notify } = useStore()
   const [digits, setDigits] = useState(['', '', '', ''])
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
@@ -14,8 +19,11 @@ export default function Verify() {
   const boxes = useRef([])
   const next = query().get('next') || ''
 
-  // no phone in flight — the user landed here directly
-  useEffect(() => { if (!auth.phone) go('login') }, [auth.phone])
+  const isEmail = auth.channel === 'email'
+  const shown = isEmail ? auth.identifier : `+91 ${auth.identifier}`
+
+  // landed here directly, with nothing in flight
+  useEffect(() => { if (!auth.identifier) go('login') }, [auth.identifier])
 
   useEffect(() => {
     if (left <= 0) return
@@ -53,11 +61,13 @@ export default function Verify() {
     if (code.length !== 4 || busy) return
     setBusy(true)
     try {
-      const r = await verifyOtp(auth.phone, code)
+      const r = await verifyOtp(auth.identifier, code)
       if (r.isNewUser) {
+        // no account yet — continue into signup
         go(`signup${next ? `?next=${encodeURIComponent(next)}` : ''}`)
       } else {
         finishLogin(r.user)
+        notify('Welcome back')
         go(next || 'profile')
       }
     } catch (err) {
@@ -71,8 +81,8 @@ export default function Verify() {
 
   async function resend() {
     if (left > 0) return
-    const r = await sendOtp(auth.phone)
-    startLogin(auth.phone, r.demoCode || null)
+    const r = await sendOtp(auth.identifier)
+    startLogin(auth.identifier, auth.channel, r.demoCode || null)
     setLeft(OTP_TTL)
     setError('')
   }
@@ -82,15 +92,22 @@ export default function Verify() {
       <div className="auth-inner">
         <img className="auth-logo" src="/img/logo_lockup.png" alt="SwaDharma" />
 
+        <p className="auth-eyebrow">Step 2 of 3 · Verify</p>
         <h1>Enter 4 digit<br />verification code</h1>
         <p className="auth-sub">
-          +91 {auth.phone}{' '}
-          <Link to={`login${next ? `?next=${encodeURIComponent(next)}` : ''}`} aria-label="Change number">✎</Link>
+          Sent to {shown}{' '}
+          <Link
+            className="auth-edit"
+            to={`login${next ? `?next=${encodeURIComponent(next)}` : ''}`}
+          >
+            Change
+          </Link>
         </p>
 
         {auth.demoCode && (
           <p className="auth-demo">
-            Demo mode — no SMS provider is connected, so your code is <b>{auth.demoCode}</b>
+            Demo mode — no {isEmail ? 'email' : 'SMS'} provider is connected, so your code
+            is <b>{auth.demoCode}</b>
           </p>
         )}
 
@@ -114,8 +131,10 @@ export default function Verify() {
           {error && <p className="auth-err">{error}</p>}
 
           <p className="auth-resend">
-            Didn't get the code?{' '}
-            <button type="button" onClick={resend} disabled={left > 0}>Resend it</button>
+            <span>
+              Didn&apos;t get the code?{' '}
+              <button type="button" onClick={resend} disabled={left > 0}>Resend it</button>
+            </span>
             {left > 0 && <span className="auth-timer">{String(left).padStart(2, '0')}s</span>}
           </p>
 

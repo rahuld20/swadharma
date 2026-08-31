@@ -21,13 +21,13 @@ export default function Profile() {
     return (
       <div className="wrap empty-page">
         <h1>You are signed out</h1>
-        <p className="cart-empty">Sign in to see your profile, orders and wallet.</p>
+        <p className="cart-empty">Log in to see your profile, orders and wallet.</p>
         <button
           className="cta-wide"
           style={{ maxWidth: 320, marginInline: 'auto' }}
           onClick={() => go(startAuthAt('profile'))}
         >
-          Login / Sign up <span className="arrow">→</span>
+          Log in or sign up <span className="arrow">→</span>
         </button>
       </div>
     )

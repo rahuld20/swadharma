@@ -46,7 +46,9 @@ export default function Signup() {
     setBusy(true)
     try {
       const profile = {
-        phone: auth.phone,
+        // whichever channel was verified, stored under the right key
+        phone: auth.channel === 'phone' ? auth.identifier : '',
+        email: auth.channel === 'email' ? auth.identifier : '',
         name: `${form.first.trim()} ${form.last.trim()}`.trim(),
         gender: form.gender,
         dob: skipped && step <= 3 ? '' : `${form.dobDay} ${form.dobMonth} ${form.dobYear}`,
@@ -74,6 +76,15 @@ export default function Signup() {
           <button className="auth-back" onClick={back} aria-label="Back">←</button>
           <span className="auth-step">{step}/5</span>
         </div>
+
+        {/* a new user arrives here straight after the code, so say what this is */}
+        <p className="auth-eyebrow dark">Step 3 of 3 · Create your account</p>
+        {auth.identifier && (
+          <p className="auth-verified">
+            <span aria-hidden="true">✓</span>{' '}
+            {auth.channel === 'email' ? auth.identifier : `+91 ${auth.identifier}`} verified
+          </p>
+        )}
 
         {step === 1 && (
           <>

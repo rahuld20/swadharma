@@ -341,3 +341,44 @@
   .auth { padding-inline: 18px; }
   .auth-otp { gap: 10px; max-width: none; }
 }
+
+/* ---------- step signposting ----------
+   The three stages look alike, so each one says where it is: enter your
+   number, verify it, then create the account. */
+.auth-eyebrow {
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--orange-soft);
+}
+.auth-eyebrow.dark { color: var(--orange-deep); }
+
+.auth-hint {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: var(--r-sm);
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 2px solid var(--orange);
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.auth-edit {
+  margin-left: 4px;
+  font-weight: 700;
+  color: var(--orange-soft);
+  text-decoration: underline;
+}
+
+.auth-verified {
+  margin: -2px 0 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green);
+}
+.auth-verified span { font-weight: 800; }
+
+.auth-resend > span:first-child { min-width: 0; }
