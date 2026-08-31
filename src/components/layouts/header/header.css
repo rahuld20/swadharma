@@ -285,3 +285,12 @@
   .hdr-mobsearch input::-webkit-search-cancel-button { -webkit-appearance: none; }
 }
 
+
+/* Four icons plus the lockup is tight on a small phone, so the buttons and the
+   gaps tighten rather than letting anything wrap or overflow. */
+@media (max-width: 420px) {
+  .hdr-row { gap: 6px; }
+  .hdr-mob-btn { width: 36px; height: 36px; }
+  .hdr-burger { width: 36px; }
+  .hdr-brand img { height: 28px; }
+}

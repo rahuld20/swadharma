@@ -88,6 +88,15 @@ export default function Header() {
               <CartIcon />
               {count > 0 && <i className="hdr-badge">{count}</i>}
             </Link>
+            {/* the app puts a person icon here — Profile in one tap, rather
+                than buried at the bottom of the drawer */}
+            <Link
+              className="hdr-mob-btn"
+              to={loggedIn ? 'profile' : startAuthAt('profile')}
+              aria-label={loggedIn ? 'My Profile' : 'Log in'}
+            >
+              <UserIcon />
+            </Link>
           </div>
 
           <button
