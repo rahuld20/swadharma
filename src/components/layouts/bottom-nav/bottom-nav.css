@@ -62,8 +62,10 @@
   .bnav-tab.brand.on { box-shadow: 0 0 0 2px var(--orange); }
   .bnav-tab.brand img { width: 30px; height: 30px; object-fit: contain; }
 
-  /* page content clears the floating bar (bar occupies 10px + 62px) */
-  body { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+  /* Page content clears the floating bar (10px offset + 62px tall) — but only
+     on screens that actually have one. Immersive flows and the onboarding
+     screens render without the bar, and were getting 84px of dead space. */
+  body:has(.bnav) { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
 
   /* Page-level sticky CTAs stack above the bar instead of hiding under it.
      `body ` raises specificity over the same selectors in flows.css/pages.css,
