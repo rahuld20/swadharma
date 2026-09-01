@@ -42,3 +42,17 @@ export const FIRST_RECHARGE_BONUS = 50
  * server's session governs, so nothing needs changing at go-live.
  */
 export const DEMO_SIGNED_IN = IS_MOCK
+
+/**
+ * Let any well-formed identifier log in, without an account behind it.
+ *
+ * Demo convenience: there is no user database in mock mode, so requiring an
+ * account to exist first meant every fresh reload forced a signup before you
+ * could look at a signed-in screen. Any valid 10-digit mobile (or email
+ * address) now goes straight through, and the code on the verification screen
+ * is accepted as typed.
+ *
+ * This only ever applies to the mocks. The moment VITE_API_URL points at a
+ * server, the server decides who exists and whether a code is right.
+ */
+export const DEMO_OPEN_LOGIN = IS_MOCK

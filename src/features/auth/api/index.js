@@ -17,7 +17,7 @@
  * flow is testable without a backend. OTP delivery has to be server-side; an
  * SMS provider's credentials can never sit in browser code.
  */
-import { API_URL, IS_MOCK } from '@/config/app'
+import { API_URL, DEMO_OPEN_LOGIN, IS_MOCK } from '@/config/app'
 
 /** The app sends a 6-digit code — its binary reads "Enter 6 digit verification code". */
 export const OTP_LENGTH = 6
@@ -70,7 +70,7 @@ export async function loginInitiate(identifier) {
   if (!IS_MOCK) return post('/auth/login/initiate', body)
 
   await wait(600)
-  if (!mock.accounts.has(value)) {
+  if (!DEMO_OPEN_LOGIN && !mock.accounts.has(value)) {
     const err = new Error('No account found with these details. Sign up instead?')
     err.code = 'NO_ACCOUNT'
     throw err
@@ -80,12 +80,13 @@ export async function loginInitiate(identifier) {
 }
 
 export async function loginVerify(identifier, code) {
-  const { value, body } = identify(identifier)
+  const { channel, value, body } = identify(identifier)
   if (!IS_MOCK) return post('/auth/login/verify', { ...body, code })
 
   await wait(600)
-  if (code !== mock.code) throw wrongCode()
-  return { ok: true, token: 'mock-token', user: { phone: value } }
+  if (!DEMO_OPEN_LOGIN && code !== mock.code) throw wrongCode()
+  mock.accounts.add(value)
+  return { ok: true, token: 'mock-token', user: { [channel]: value } }
 }
 
 /* ---------------------------------------------------------------- *
@@ -112,7 +113,7 @@ export async function signupVerify(profile, code) {
   if (!IS_MOCK) return post('/auth/signup/verify', { ...profile, ...body, code })
 
   await wait(600)
-  if (code !== mock.code) throw wrongCode()
+  if (!DEMO_OPEN_LOGIN && code !== mock.code) throw wrongCode()
   mock.accounts.add(value)
   return { ok: true, token: 'mock-token', user: profile }
 }

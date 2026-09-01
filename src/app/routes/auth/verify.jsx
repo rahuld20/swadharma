@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import {
   OTP_LENGTH, OTP_TTL, loginInitiate, loginVerify, signupInitiate, signupVerify,
 } from '@/features/auth/api'
+import { DEMO_OPEN_LOGIN } from '@/config/app'
 import { Link, go, query } from '@/lib/router'
 import { useStore } from '@/stores/app-store'
 import '@/styles/auth.css'
@@ -113,6 +114,7 @@ export default function Verify() {
           <p className="auth-demo">
             Demo mode — no {isEmail ? 'email' : 'SMS'} provider is connected, so your code
             is <b>{auth.demoCode}</b>
+            {DEMO_OPEN_LOGIN && <> (any {OTP_LENGTH} digits are accepted for now)</>}
           </p>
         )}
 
