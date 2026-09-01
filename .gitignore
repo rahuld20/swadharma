@@ -1,3 +1,6 @@
 *.apk
 .env
 .env.local
+
+# temporary build made when testing against a real API (see README)
+dist-api

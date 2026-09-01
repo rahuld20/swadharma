@@ -1,4 +1,4 @@
-import { MainLayout } from '@/components/layouts'
+import { MainLayout } from '@/views/layouts'
 import { AppProvider } from './provider'
 import { AppRouter } from './router'
 

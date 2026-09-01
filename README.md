@@ -10,34 +10,88 @@ npm run dev      # http://localhost:5173
 npm run build    # production build -> dist/
 ```
 
-## Project structure
+## Architecture — MVC
 
-Laid out after [bulletproof-react](https://github.com/alan2207/bulletproof-react/tree/master/apps).
 `@/` resolves to `src/` (see `vite.config.js` and `jsconfig.json`).
 
 ```
 src/
-├── app/                     # application layer
-│   ├── routes/              # one module per screen
-│   ├── app.jsx              # composes provider + layout + router
-│   ├── provider.jsx         # global providers
-│   └── router.jsx           # hash segment -> route element
-├── components/
-│   ├── layouts/             # header, footer, main-layout
-│   └── ui/                  # countdown, filter-sheet, toast, trust-block, icons
-├── config/                  # paths and other global config
-├── features/                # feature modules: home, temples, puja, chadhava,
-│   └── <feature>/           #   booking, astrology, wallet, teerth, store, profile
-│       ├── api/             # the feature's data access
-│       └── components/      # components owned by the feature
-├── lib/                     # shared libraries — router, data sets
-├── stores/                  # global state (app-store)
-└── styles/                  # global stylesheets
+|-- models/          M  what the data IS
+|     puja.js temple.js chadhava.js product.js astrologer.js
+|     teerth-package.js user.js wallet.js normalise.js
+|-- services/           where the data COMES FROM
+|     http.js           the only module that calls fetch
+|     endpoints.js      every API path, in one table
+|     source.js         the mock/API switch
+|     mock/             the in-memory data set
+|     *.repository.js   catalog, home, astrology, store, teerth,
+|                       profile, wallet, auth, payments
+|-- controllers/     C  what a screen needs, and what it can do
+|     use-resource.js   binds a repository to a view
+|     use-*.js          one per area
+|     app-store.jsx     cart, wallet, session, favourites
+|-- views/           V  what it looks like
+|     pages/            one module per screen
+|     layouts/          header, footer, bottom-nav, main-layout
+|     components/       ui/ plus per-area view components
+|-- app/                composition root: provider, router, app shell
+|-- config/             paths, brand, environment flags
+|-- lib/                router
+`-- styles/             global stylesheets
 ```
 
-Direction of imports is one-way: `app/` → `features/` → `components/`, `lib/`, `stores/`.
-Features do not import from each other; screens that mix two domains (a puja card on the
-temple page, say) compose them in `app/routes/`.
+**Imports run one way and never back:**
+
+```
+views  ->  controllers  ->  services  ->  models
+```
+
+- A **model** is pure. It knows the shape of a record and the rules about it
+  (`Puja.isSpecial`, `Product.filter`, `Chadhava.nextCutoff`) and imports nothing
+  from the other three layers. No React, no fetch.
+- A **service** is the only layer that knows where data lives. Each repository
+  has the same two branches — read the mock, or call the API — and returns
+  records already normalised by a model.
+- A **controller** is the only thing a view may take data from. It gathers what
+  a screen needs, sometimes across two repositories, and hands back plain values
+  plus the actions available.
+- A **view** renders. It imports no service and no `fetch`, and holds no
+  knowledge of where its data came from.
+
+## Swapping the mock for a real API
+
+The whole data source is one environment variable:
+
+```bash
+VITE_API_URL=https://api.swadharma.tech   # live backend
+VITE_API_URL=                             # empty -> in-memory mock
+```
+
+Nothing else changes. No view, controller or model is edited, because the branch
+lives in the repositories and is read once through `IS_MOCK` in `config/app.js`.
+
+**How it stays working either way.** A repository returns a plain value against
+the mock and a promise against the API. `useResource` accepts both:
+
+- synchronous source -> the value is there on the first render, no loading state,
+  no extra pass — the screens behave exactly as they did when the data was a
+  module constant;
+- asynchronous source -> `loading` is true until the promise settles and `data`
+  holds a safe empty value, so a `.map()` never throws mid-flight.
+
+**Fitting your backend.** Three files, and only these three:
+
+| To change | Edit |
+|---|---|
+| a URL or path | `services/endpoints.js` |
+| the response shape | the model's `from()` — it maps aliases (`birth_place` -> `birthPlace`), coerces types and fills defaults |
+| headers, auth, retries, error text | `services/http.js` |
+
+`http.js` already unwraps a `{ data: ... }` envelope, so both house styles work
+unchanged. Every model spreads the raw record before normalising, so a field the
+backend adds arrives in the view without any edit at all.
+
+`server/` is a reference implementation of the auth and payment routes.
 
 ## Where the design came from
 
@@ -101,7 +155,7 @@ tagline as live text (`.ftr-tag`) instead. Source logo files are untouched.
 Below 860px the site becomes an app shell modelled on `app-release.apk`; above
 that breakpoint nothing changes at all.
 
-- **`components/layouts/bottom-nav/`** — the APK's floating tab bar: a dark pill
+- **`views/layouts/bottom-nav/`** — the APK's floating tab bar: a dark pill
   over the content, active tab in a saffron disc. Five tabs (brand, Puja, Astro,
   Teerth, Store); a deep route keeps its section lit, so `#/astrologers` shows
   Astro. It removes itself on immersive screens (chat, call, book, checkout,
@@ -128,7 +182,7 @@ non-mobile rule is added, removed or changed.
 
 ### Promo slider
 
-`src/components/ui/promo-slider/` is shared by the home hero and the Puja page.
+`src/views/components/ui/promo-slider/` is shared by the home hero and the Puja page.
 A slide is either a finished poster (`image`) or a designed panel (`gradient`
 plus `kicker` / `heading` / `sub`); both render in the same frame with the CTA
 in the same place, so a mixed set still reads as one carousel.
@@ -142,8 +196,8 @@ paired-card proportions and slides through the rest. Below 900px it is always
 one per view and the arrows hide in favour of swiping. Autoplay pauses on hover
 and on focus so a slide cannot move out from under a click.
 
-To add a promo, append to `BANNERS` in `src/lib/data/home.js` or
-`PUJA_BANNERS` in `src/lib/data/puja.js` — the dots and controls follow.
+To add a promo, append to `BANNERS` in `src/services/mock/home.js` or
+`PUJA_BANNERS` in `src/services/mock/puja.js` — the dots and controls follow.
 
 `promo_navratri.jpg` / `promo_kaalsarp.jpg` are the banner artwork with the old
 navy frame cropped off; the originals are still in `public/img/`.
@@ -169,7 +223,7 @@ flag, two puja entry points (`BookPujaScreen` at `/book-puja` and `PujaBookingFl
 at `/puja-booking-flow`, the latter using `BookingStepsHeader`), and a separate chadhava
 flow (`ChadhavaBookingFlowScreen` → `/chadhava-combos` → `/chadhava-date-selection` →
 `/chadhava-address` → `/chadhava-booking-preview`). Both are implemented in
-`src/app/routes/book-flow.jsx`, driven by `FLOW_STEPS` in `catalog.js`.
+`src/views/pages/book-flow.jsx`, driven by `FLOW_STEPS` in `catalog.js`.
 
 | | Steps | Notes |
 |---|---|---|
@@ -201,7 +255,7 @@ passes `?mode=<tier>`.
 
 The binary carries `_CountdownCard`, `_startCountdown`, `_buildCountdown` and
 `_parseTimeRemaining`, with uppercase `DAYS` / `HOURS` unit labels and the string
-`Offer ends in `. `src/components/ui/countdown/countdown.jsx` reproduces it: a live DAYS/HOURS/MINS/SECS
+`Offer ends in `. `src/views/components/ui/countdown/countdown.jsx` reproduces it: a live DAYS/HOURS/MINS/SECS
 card that ticks every second, drops the days box once inside a day, and switches to a red
 urgent palette under 24 hours. It appears on the special PDP (body + buy panel) and as a
 compact pill in the special booking-flow header. Normal puja and normal chadhava never
@@ -343,7 +397,7 @@ the location is editable.
 **Recharge** runs Amount + offers → Payment (GST at 18%, coupon `ASTRO5`, UPI methods) →
 Success with a receipt. Offers tier at ₹100 / ₹500 / ₹1000.
 
-`src/lib/data/astro.js` holds six astrologers with skills, languages, experience, rate and
+`src/services/mock/astro.js` holds six astrologers with skills, languages, experience, rate and
 online / busy / offline status. The list sorts online-first, then by the chosen sort,
 and filters by skill, language and life concern.
 
@@ -459,13 +513,13 @@ The cart belongs to the **Store alone** — puja, chadhava and yatra each book t
 own flow. `#/cart` → `#/checkout` → `#/success` is the product path.
 
 The header carries Wallet, Wishlist and Cart, and the last two show live counts from
-`src/stores/app-store.jsx` (`count` and `wishlist.length`). The store dashboard and product listing
+`src/controllers/app-store.jsx` (`count` and `wishlist.length`). The store dashboard and product listing
 carry the same two icons with the same counts.
 
 ## State
 
-`src/stores/app-store.jsx` (React context) holds the cart, favourites, address, payment method and
-order history. `src/lib/data/catalog.js` is the single source of truth — temples own their
+`src/controllers/app-store.jsx` (React context) holds the cart, favourites, address, payment method and
+order history. `src/services/mock/catalog.js` is the single source of truth — temples own their
 pujas and chadhavas, mirroring `TempleDetailScreen`. Swap it for API calls when the
 backend is ready; the endpoints are already visible in the binary (`/api/v1/...`).
 

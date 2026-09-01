@@ -47,3 +47,27 @@ cards / UPI id `success@razorpay` to complete a payment.
       here is for local development only).
 - [ ] Issue real signed JWTs instead of the placeholder token.
 - [ ] Set `ALLOWED_ORIGIN` to your domain rather than `*`.
+
+## The rest of the API
+
+This service covers only what needs a secret. Setting `VITE_API_URL` points the
+**whole** site at it, so every other read has to be answered too — the catalogue,
+the store, the account, and so on.
+
+`src/services/endpoints.js` is the complete list of paths the site calls, and each
+repository in `src/services/*.repository.js` shows the exact shape it expects: the
+mock branch of a method returns precisely what its API branch has to return.
+`GET /pujas` returns what `PUJAS` holds; `GET /temples/facets` returns the object
+that method builds; and so on.
+
+Two things make fitting an existing backend easier than matching that shape by hand:
+
+- **Envelopes** — a bare array or object works, and so does `{ "data": ... }`.
+  `src/services/http.js` unwraps the second.
+- **Field names** — each model in `src/models` accepts aliases and coerces types,
+  so `birth_place`, `list_price` and `is_new` arrive as `birthPlace`, `mrp` and
+  `isNew` without a view knowing. Add your own aliases there rather than
+  reshaping the payload on the server.
+
+Reads are cached for five minutes and de-duplicated while in flight, so a page
+of thirty cards asking for the same temple list makes one request.

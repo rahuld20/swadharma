@@ -56,3 +56,14 @@ export const DEMO_SIGNED_IN = IS_MOCK
  * server, the server decides who exists and whether a code is right.
  */
 export const DEMO_OPEN_LOGIN = IS_MOCK
+
+/**
+ * Browser storage keys.
+ *
+ * Named here rather than beside the screen that writes them: the welcome
+ * slides set this flag and the auth controller reads it, and a controller must
+ * never import from a view.
+ */
+export const STORAGE = {
+  welcomeSeen: 'swa.welcome.seen',
+}

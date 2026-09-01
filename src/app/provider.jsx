@@ -1,4 +1,4 @@
-import { StoreProvider } from '@/stores/app-store'
+import { StoreProvider } from '@/controllers/app-store'
 
 /** Everything the whole tree needs — one place to add future providers. */
 export function AppProvider({ children }) {
