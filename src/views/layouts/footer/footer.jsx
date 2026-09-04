@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { Link } from '@/lib/router'
+import { MOBILE, useMediaQuery } from '@/views/hooks/use-media-query'
 import './footer.css'
 
 const COLUMNS = [
@@ -41,6 +43,20 @@ const LEGAL = [
 ]
 
 export default function Footer() {
+  /*
+   * Same content in both layouts, different structure.
+   *
+   * Four open columns is a desktop pattern; on a phone the same 24 links are a
+   * wall to scroll past, so they collapse into four labelled sections.
+   *
+   * The markup differs rather than just the styling, which is why this asks
+   * the breakpoint in JavaScript. Above it the headings render as plain text
+   * exactly as before: no button, no toggle state, nothing for a desktop
+   * reader to trip over.
+   */
+  const isMobile = useMediaQuery(MOBILE)
+  const [openCol, setOpenCol] = useState(null)
+
   return (
     <footer className="ftr">
       <div className="wrap">
@@ -69,16 +85,32 @@ export default function Footer() {
           </div>
 
           <nav className="ftr-cols" aria-label="Footer">
-            {COLUMNS.map((col) => (
-              <div key={col.title}>
-                <h3>{col.title}</h3>
-                <ul>
-                  {col.links.map(([label, to]) => (
-                    <li key={label}><Link to={to}>{label}</Link></li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            {COLUMNS.map((col) => {
+              const id = `ftr-${col.title.toLowerCase()}`
+              const open = openCol === col.title
+              return (
+                <div key={col.title} className={open ? 'on' : undefined}>
+                  <h3>
+                    {isMobile ? (
+                      <button
+                        type="button"
+                        aria-expanded={open}
+                        aria-controls={id}
+                        onClick={() => setOpenCol(open ? null : col.title)}
+                      >
+                        {col.title}
+                        <ChevronIcon />
+                      </button>
+                    ) : col.title}
+                  </h3>
+                  <ul id={id}>
+                    {col.links.map(([label, to]) => (
+                      <li key={label}><Link to={to}>{label}</Link></li>
+                    ))}
+                  </ul>
+                </div>
+              )
+            })}
           </nav>
         </div>
 
@@ -113,6 +145,13 @@ export default function Footer() {
 }
 
 /* ---- icons ---- */
+function ChevronIcon() {
+  return (
+    <svg className="ftr-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="m6.5 9.5 5.5 5.5 5.5-5.5" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
 function MailIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">

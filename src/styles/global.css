@@ -246,17 +246,7 @@ ul { list-style: none; }
     -webkit-overflow-scrolling: touch;
   }
 
-  /* an app's footer is a legal strip, not four columns of links */
-  .ftr-top,
-  .ftr-apps { display: none; }
-  .ftr-bottom {
-    margin-top: 0;
-    padding: 20px 0 8px;
-    border-top: none;
-    justify-content: center;
-    text-align: center;
-  }
-  .ftr-bottom ul { justify-content: center; }
+  /* the footer's own app layout lives in views/layouts/footer/footer.css */
 }
 
 /* Installed (standalone) on a phone — no browser chrome, so the header sits
