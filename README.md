@@ -163,18 +163,16 @@ that breakpoint nothing changes at all.
 - **Header** — matches the app: logo, a search icon that expands a row, cart, and
   the menu. The full-width search field and the nav row are mobile-hidden since
   navigation lives at the bottom.
-- **Footer** — same content as desktop, restructured. Four open columns is a
-  desktop pattern, so on a phone the brand block, contact details and social
-  links stack, and the four link columns become four labelled sections that
-  open on tap — 24 links as four taps rather than a wall to scroll past. The
-  app-download strip and the legal line follow. It used to collapse to the
-  legal line alone, which put the contact details and store links out of reach
-  on a phone entirely.
+- **Footer** — the same 47 items desktop shows, and a check enforces that
+  number rather than trusting it. Only the arrangement changes: the brand
+  block and the four link groups stack instead of sitting side by side, and
+  each group lays its links out in two columns so a section reads as three
+  short rows rather than six long ones. Order down the page is brand,
+  contact, social, the four groups, the app buttons, then the legal line.
 
-  The two layouts need different markup rather than different styling, so
-  `views/hooks/use-media-query.js` asks the breakpoint in JavaScript and the
-  section headings render as plain text above 860px. The desktop tree is
-  therefore exactly what it was — no button, no state in it at all.
+  It used to collapse to the legal line alone — `.ftr-top` and `.ftr-apps`
+  were `display: none` below 860px — which put the support address, all 24
+  links and the app buttons out of reach on a phone entirely.
 - **Touch feel** — no tap highlight, no rubber-band overscroll, momentum on the
   rails, press-scale on cards, `env(safe-area-inset-*)` for notched phones.
 - **Installable** — `public/manifest.webmanifest` plus apple-touch-icon and
