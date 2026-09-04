@@ -1,19 +1,29 @@
 import { Link } from '@/lib/router'
 import './footer.css'
 
+/*
+ * Only what the app actually opens.
+ *
+ * A footer link is a promise that the thing exists; two here were not. "Live
+ * Aarti" had no screen, no route and no data anywhere in the codebase and
+ * pointed at the temple list, and "Kundli Matching" appeared nowhere but this
+ * array and pointed at the plain kundli page. Both are gone rather than
+ * repointed - a label that lands somewhere else is the same broken promise,
+ * just harder to spot.
+ */
 const COLUMNS = [
   {
     title: 'Services',
     links: [
       ['Book a Puja', 'puja'], ['Chadhava', 'chadhava'], ['Temples', 'temples'],
-      ['Teerth Yatra', 'teerth'], ['Talk to Astrologer', 'astro'], ['Live Aarti', 'temples'],
+      ['Teerth Yatra', 'teerth'], ['Talk to Astrologer', 'astro'],
     ],
   },
   {
     title: 'Astrology',
     links: [
-      ['Free Kundli', 'kundli'], ['Kundli Matching', 'kundli'], ['Daily Horoscope', 'horoscope'],
-      ['Panchang', 'panchang'], ['Numerology', 'astro'], ['Vastu', 'astro'],
+      ['Free Kundli', 'kundli'], ['Daily Horoscope', 'horoscope'], ['Panchang', 'panchang'],
+      ['Numerology', 'astro'], ['Vastu', 'astro'],
     ],
   },
   {
